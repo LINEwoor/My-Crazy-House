@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dlu1d11oy3b8e"]
+
+[ext_resource type="Texture2D" uid="uid://x7c25ajv2ryb" path="res://Gridbox materials/PNG/Dark/texture_01.png" id="1_k55di"]
+
+[resource]
+albedo_texture = ExtResource("1_k55di")
+uv1_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true

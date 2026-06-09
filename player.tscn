@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://tu4bb2ym656r"]
+
+[ext_resource type="Material" uid="uid://mq60nx5d23nt" path="res://Gridbox materials/gridboxes/gridbox_purple.tres" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://52h5o8rtbxhw" path="res://PlayerController.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://c1w708r37jn2v" path="res://PlayerHead.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://dd50617gbhlcd" path="res://InteractiveRay.gd" id="4_2hs0m"]
+[ext_resource type="Script" uid="uid://uvbn2a75v733" path="res://Debug.gd" id="4_hqtel"]
+[ext_resource type="Script" uid="uid://76huj76m0xwu" path="res://push_rigidbodies_component.gd" id="5_sweqy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3pqv"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_hqtel"]
+length = 0.25
+
+[node name="Player" type="CharacterBody3D" unique_id=1565813645 node_paths=PackedStringArray("push_component")]
+floor_max_angle = 1.134464
+script = ExtResource("1_onrkg")
+push_component = NodePath("Components/PushRigidbodiesComponent")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=649816261]
+material_override = ExtResource("1_4flbx")
+mesh = SubResource("CapsuleMesh_onrkg")
+
+[node name="Stand_CollisionShape3D" type="CollisionShape3D" parent="." unique_id=372792505]
+shape = SubResource("CapsuleShape3D_i3pqv")
+
+[node name="Head" type="Node3D" parent="." unique_id=1943119572 node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("3_i3pqv")
+camera = NodePath("Camera3D")
+sensX = 0.002
+sensY = 0.002
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1759861258]
+
+[node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=617838184]
+target_position = Vector3(0, 0, -1.5)
+script = ExtResource("4_2hs0m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=970451204]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.65, -0.5)
+shape = SubResource("SeparationRayShape3D_hqtel")
+
+[node name="Components" type="Node" parent="." unique_id=64279726]
+
+[node name="DebugComponent" type="Node" parent="Components" unique_id=300566437]
+script = ExtResource("4_hqtel")
+
+[node name="PushRigidbodiesComponent" type="Node" parent="Components" unique_id=769835672]
+script = ExtResource("5_sweqy")
+push_force = 6.0
