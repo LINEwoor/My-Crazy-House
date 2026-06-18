@@ -8,3 +8,7 @@ func _process(delta: float) -> void:
 		if object and object is InteractiveObject:
 			var interactive_object : InteractiveObject = object
 			interactive_object.Interactive(owner)
+		
+		if object and object is PickupObject:
+			var pickup_object : PickupObject = object
+			pickup_object.pickup(owner)

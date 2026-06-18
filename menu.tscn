@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bvvpbiun37256" path="res://VolumeSldierSection.tscn" id="3_mae5d"]
 
 [node name="Menu" type="Control" unique_id=108951194]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

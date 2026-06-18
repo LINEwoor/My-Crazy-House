@@ -52,7 +52,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48545003, 0, 0)
 sync_to_physics = false
 script = ExtResource("1_ba8gm")
 animator = NodePath("../AnimationPlayer")
-object_name = "Door"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Door" unique_id=1366260220]
 mesh = SubResource("BoxMesh_5vw27")

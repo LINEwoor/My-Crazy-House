@@ -79,12 +79,13 @@ func toggle_menu() -> void:
 		main_panel.show()
 		current_menu = main_panel
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Engine.time_scale = 0
+		get_tree().paused = true
 		G.can_head_rotate = false
 	else:
 		current_menu.hide()
 		current_menu = main_panel
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Engine.time_scale = 1
+		get_tree().paused = false
+
 		G.can_head_rotate = true
 		
