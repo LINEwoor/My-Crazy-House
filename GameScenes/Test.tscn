@@ -18,16 +18,15 @@
 [ext_resource type="PackedScene" uid="uid://b3nsdbudfq4u6" path="res://floor.glb" id="16_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://dbjp0v15cvr7d" path="res://Inventory/test_item.tscn" id="17_yaehf"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
-sky_top_color = Color(0.1193027, 0.47382033, 0.7047963, 1)
-sky_horizon_color = Color(0.49397314, 0.66816396, 0.8776536, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yaehf"]
 
 [sub_resource type="Sky" id="Sky_h2yge"]
-sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+sky_material = SubResource("ProceduralSkyMaterial_yaehf")
 
 [sub_resource type="Environment" id="Environment_1bvp3"]
 background_mode = 2
 sky = SubResource("Sky_h2yge")
+tonemap_mode = 3
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
@@ -705,6 +704,13 @@ objects = [NodePath("../Door/Door")]
 [node name="Door" parent="." unique_id=1985303590 instance=ExtResource("9_kek77")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6391382, 1.4999999, 2.3502464)
 
+[node name="Door" parent="Door" index="0" unique_id=1606416146]
+isLocked = true
+lock_id = 0
+
+[node name="MeshInstance3D" parent="Door/Door" index="0" unique_id=1366260220]
+metadata/_edit_group_ = true
+
 [node name="HingeJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=1033765350]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -15.489187, 2.1370585, -10.256802)
 node_a = NodePath("../CSGBox3D2")
@@ -1114,6 +1120,7 @@ shape = SubResource("SphereShape3D_dg77c")
 transform = Transform3D(1, 0, 0, 0, 0.82474846, -0.5654997, 0, 0.5654997, 0.82474846, -4.0551434, 2.0823703, -5.146385)
 use_collision = true
 size = Vector3(3.53, 1, 7.955)
+metadata/_edit_group_ = true
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=756991207]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0551434, 4.270374, -10.490924)

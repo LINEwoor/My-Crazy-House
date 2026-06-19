@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="KeyItem" format=3 uid="uid://botjx3yqgfjen"]
+
+[ext_resource type="Texture2D" uid="uid://c3iefeucxf12a" path="res://icon.svg" id="1_5r2oc"]
+[ext_resource type="Script" uid="uid://u1qv2w7g1if3" path="res://Inventory/Key.gd" id="2_8iswb"]
+[ext_resource type="PackedScene" uid="uid://byvmct08213nd" path="res://Inventory/Key_model.tscn" id="3_iuggr"]
+
+[resource]
+script = ExtResource("2_8iswb")
+key_id = 0
+item_mesh = ExtResource("3_iuggr")
+interactable_scene = "uid://dbjp0v15cvr7d"
+is_consumable = true
+metadata/_custom_type_script = "uid://u1qv2w7g1if3"

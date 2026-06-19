@@ -3,6 +3,7 @@ class_name Door
 
 @export var animator : AnimationPlayer
 @export var isLocked : bool = false
+@export var lock_id : int = -1
 @export var canHand : bool = true
 @export var animationName : String = "Open"
 @export var autoClose : bool = false

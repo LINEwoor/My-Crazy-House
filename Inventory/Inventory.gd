@@ -13,7 +13,11 @@ var current_index : int = 0
 func _ready() -> void:
 	await Engine.get_main_loop().process_frame
 	select_slot(current_index)
-	
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("drop_item"):
+		drop_item(current_index)
 
 func _enter_tree() -> void:
 	slots.resize(MAX_SLOTS)
@@ -38,14 +42,17 @@ func remove_item(index : int) -> Item:
 	var item = slots[index]
 	slots[index] = null
 	inventory_updated.emit(index)
+	if index == current_index:
+		item_equipped.emit(null)
 	return item
 
 func use_item(index : int, user : Node):
 	var item = slots[index]
 	if item:
-		item.Use(user)
-		remove_item(index)
-		item_equipped.emit(null)
+		var success = item.Use(user)
+		if success and item.is_consumable:
+			remove_item(index)
+			item_equipped.emit(null)
 
 
 func select_slot(index: int):
@@ -73,3 +80,15 @@ func _unhandled_input(event: InputEvent) -> void:
 				use_item(current_index, get_tree().get_first_node_in_group("Player"))
 			else:
 				select_slot(i)
+
+func spawn_item(item : Item):
+	var interactable = load(item.interactable_scene).instantiate()
+	interactable.item = item
+	get_tree().current_scene.add_child(interactable)
+	item_dropped.emit(interactable)
+
+func drop_item(index : int):
+	if slots[index]:
+		var dropped_item = slots[index]
+		spawn_item(dropped_item)
+		remove_item(index)

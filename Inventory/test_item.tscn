@@ -1,26 +1,18 @@
 [gd_scene format=3 uid="uid://dbjp0v15cvr7d"]
 
 [ext_resource type="Script" uid="uid://gnw3i3xxg4vn" path="res://Inventory/PickupItem.gd" id="1_jihd1"]
-[ext_resource type="Resource" uid="uid://d3qyxy4w53a6u" path="res://Inventory/test_item.tres" id="2_xllxn"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qaup8"]
-vertex_color_use_as_albedo = true
-albedo_color = Color(1, 0.64995646, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_jihd1"]
-material = SubResource("StandardMaterial3D_qaup8")
-size = Vector3(0.2, 0.2, 0.4)
+[ext_resource type="Resource" uid="uid://botjx3yqgfjen" path="res://Inventory/Test_Key.tres" id="2_xllxn"]
+[ext_resource type="PackedScene" uid="uid://byvmct08213nd" path="res://Inventory/Key_model.tscn" id="3_g57pe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g57pe"]
-size = Vector3(0.2, 0.2, 0.4)
+size = Vector3(0.61765134, 0.3037842, 0.22603759)
 
 [node name="Test_item" type="RigidBody3D" unique_id=1092904155 groups=["grabbable"]]
 script = ExtResource("1_jihd1")
 item = ExtResource("2_xllxn")
-is_once = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=842090359]
-mesh = SubResource("BoxMesh_jihd1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1034326691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16534427, -0.0063110255, -0.0015686154)
 shape = SubResource("BoxShape3D_g57pe")
+
+[node name="Node3D" parent="." unique_id=628579363 instance=ExtResource("3_g57pe")]

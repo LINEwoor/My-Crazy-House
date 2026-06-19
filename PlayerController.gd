@@ -7,6 +7,7 @@ var state: State = State.WALK
 @export var hand: Node3D
 @export var item_offset: Vector3 = Vector3(0, -0.2, -0.5)
 @export var item_rotation: Vector3 = Vector3(0, 0, 0)
+@onready var head: Node3D = $Head
 
 @export_category("Speed settings")
 @export var walk_speed: float = 3
@@ -24,6 +25,8 @@ var current_speed: float
 @export_category("References")
 @export var animator: AnimationPlayer
 @export var roof_checker: RayCast3D
+@onready var interactive_ray: InteractiveRay = $Head/Bobbong_pivot/Interactive_ray
+
 
 @export_category("Components")
 @export var push_component: PushController
@@ -44,6 +47,7 @@ func _ready() -> void:
 	set_state(State.WALK)
 	
 	Inventory.item_equipped.connect(_on_item_equipped)
+	Inventory.item_dropped.connect(drop_from_player)
 
 func _physics_process(delta: float) -> void:
 	update_buffers(delta)
@@ -214,8 +218,43 @@ func _on_item_equipped(item: Item):
 		hand.add_child(current_item_instance)
 		
 		current_item_instance.position = item_offset
-		current_item_instance.rotation = item_rotation
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("use_item"):
 		Inventory.use_item(Inventory.current_index, self)
+
+
+func drop_from_player(item : Node3D):
+	var forward : Vector3 = -interactive_ray.global_transform.basis.z.normalized()
+	
+	var space_state = get_world_3d().direct_space_state
+	var from = interactive_ray.global_position
+	var to = interactive_ray.global_position + forward * 2.0
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	var result = space_state.intersect_ray(query)
+	
+	var offset_distance = get_item_offset(item)
+	
+	if !result:
+		item.global_position = to
+	else:
+		var spawn_position = result.position + result.normal * offset_distance
+		item.global_position = spawn_position
+
+func get_item_offset(item: Node3D) -> float:
+	for child in item.get_children():
+		if child is MeshInstance3D:
+			var aabb = child.get_aabb()
+			if aabb.size.length() > 0:
+				return aabb.size.length() / 2.0 + 0.1
+	
+	for child in item.get_children():
+		if child is CollisionShape3D and child.shape:
+			var shape = child.shape
+			if shape is BoxShape3D:
+				return shape.size.length() / 2.0 + 0.1
+			elif shape is SphereShape3D:
+				return shape.radius + 0.1
+			elif shape is CapsuleShape3D:
+				return shape.radius + 0.1
+	return 0.3
