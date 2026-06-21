@@ -1,22 +1,24 @@
 [gd_scene format=4 uid="uid://c7et6ax587yfl"]
 
-[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://player.tscn" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://bcml3hu60v4jh" path="res://BlinkingLight.gd" id="1_4c57u"]
+[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://Player/player.tscn" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bcml3hu60v4jh" path="res://Systems/Light/BlinkingLight.gd" id="1_4c57u"]
 [ext_resource type="Material" uid="uid://dlu1d11oy3b8e" path="res://Gridbox materials/gridboxes/gridbox_dark.tres" id="1_ig7tw"]
 [ext_resource type="Material" uid="uid://bixlws5jdqjpt" path="res://Gridbox materials/gridboxes/gridbox_white.tres" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://df6uj5qq64c5h" path="res://menu.tscn" id="4_1bvp3"]
 [ext_resource type="AudioStream" uid="uid://cyi8mnsr626l6" path="res://Audio/Eldritch_Echoes_FULL_SONG_MusicGPT.mp3" id="5_lquwl"]
 [ext_resource type="Material" uid="uid://cegfm1a0c3pyj" path="res://Gridbox materials/gridboxes/gridbox_orange.tres" id="6_7mycd"]
 [ext_resource type="Material" uid="uid://b3r1tbowxsx6y" path="res://Gridbox materials/gridboxes/gridbox_red.tres" id="7_5vw27"]
-[ext_resource type="Material" uid="uid://d3v4k17566qrj" path="res://new_standard_material_3d.tres" id="7_efxa6"]
-[ext_resource type="Script" uid="uid://g5r3edbbqtgc" path="res://Button.gd" id="8_kek77"]
-[ext_resource type="PackedScene" uid="uid://bi674ftbeg3tk" path="res://door.tscn" id="9_kek77"]
+[ext_resource type="Material" uid="uid://d3v4k17566qrj" path="res://Temp/new_standard_material_3d.tres" id="7_efxa6"]
+[ext_resource type="Script" uid="uid://cff3ogkvjasab" path="res://Items/PortalMeshCollector.gd" id="7_xw1ow"]
+[ext_resource type="Script" uid="uid://g5r3edbbqtgc" path="res://Systems/InteractiveObjects/Button.gd" id="8_kek77"]
+[ext_resource type="PackedScene" uid="uid://bi674ftbeg3tk" path="res://Systems/InteractiveObjects/door.tscn" id="9_kek77"]
 [ext_resource type="Script" uid="uid://cw1r4c1d7beyv" path="res://addons/portals/scripts/portal_3d.gd" id="12_w48qg"]
 [ext_resource type="Material" uid="uid://dcfkcyddxkglf" path="res://addons/portals/materials/editor-preview-portal-material.tres" id="13_vivmo"]
 [ext_resource type="Script" uid="uid://bxcel82b180o3" path="res://addons/portals/scripts/portal_boxmesh.gd" id="14_2cqfq"]
 [ext_resource type="Material" uid="uid://mq60nx5d23nt" path="res://Gridbox materials/gridboxes/gridbox_purple.tres" id="15_vivmo"]
-[ext_resource type="PackedScene" uid="uid://b3nsdbudfq4u6" path="res://floor.glb" id="16_2cqfq"]
-[ext_resource type="PackedScene" uid="uid://dbjp0v15cvr7d" path="res://Inventory/test_item.tscn" id="17_yaehf"]
+[ext_resource type="Texture2D" uid="uid://c3iefeucxf12a" path="res://Sprites/icon.svg" id="17_ushuq"]
+[ext_resource type="PackedScene" uid="uid://dbjp0v15cvr7d" path="res://Items/test_item.tscn" id="17_yaehf"]
+[ext_resource type="PackedScene" uid="uid://byvmct08213nd" path="res://Items/Keys/Key_model.tscn" id="18_mhymc"]
+[ext_resource type="Script" uid="uid://u1qv2w7g1if3" path="res://Items/Keys/Key.gd" id="19_58hep"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yaehf"]
 
@@ -170,25 +172,15 @@ size = Vector3(3, 4, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_kq58d"]
 size = Vector3(3, 4, 1)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_074og"]
-_surfaces = [{
-"aabb": AABB(-1, -1.6075, -1, 2, 3.215, 1),
-"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/AACAPw=="),
-"format": 34359742487,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAQABAABAAUAAQADAAUABQADAAcAAwACAAcABwACAAYAAgAAAAYABgAAAAQABAAFAAYABgAFAAcAAAABAAIAAgABAAMA"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("AACAv4/CzT8AAAAAAACAP4/CzT8AAAAAAACAv4/Czb8AAAAAAACAP4/Czb8AAAAAAACAv4/CzT8AAIC/AACAP4/CzT8AAIC/AACAv4/Czb8AAIC/AACAP4/Czb8AAIC//3//f/9/AID/f/9//38AgP9//3//fwCA/3//f/9/AID/f/9//38AgP9//3//fwCA/3//f/9/AID/f/9//38AgA==")
-}]
-script = ExtResource("14_2cqfq")
-size = Vector3(2, 3.215, 1)
+[sub_resource type="Resource" id="Resource_ddm5b"]
+script = ExtResource("19_58hep")
+key_id = 0
+item_name = "Key"
+item_mesh = ExtResource("18_mhymc")
+interactable_scene = "uid://dbjp0v15cvr7d"
+metadata/_custom_type_script = "uid://u1qv2w7g1if3"
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_seu75"]
-size = Vector3(2, 3.215, 1)
-
-[node name="Node3D" type="Node3D" unique_id=1569414477]
+[node name="Node3D2" type="Node3D" unique_id=1569414477]
 
 [node name="BlinkingLight" type="OmniLight3D" parent="." unique_id=1553667025]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1596594, 3.195718, 5.006768)
@@ -562,8 +554,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.511229, 0.47639048, 7.0155
 use_collision = true
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Menu" parent="." unique_id=108951194 instance=ExtResource("4_1bvp3")]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1322595997]
 stream = ExtResource("5_lquwl")
 autoplay = true
@@ -574,6 +564,7 @@ parameters/looping = true
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5305376, 1, 1.9647799)
 collision_layer = 32769
+script = ExtResource("7_xw1ow")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=457481259]
 material_override = ExtResource("7_efxa6")
@@ -700,6 +691,7 @@ material_override = ExtResource("7_5vw27")
 use_collision = true
 script = ExtResource("8_kek77")
 objects = [NodePath("../Door/Door")]
+object_name = "Lever"
 
 [node name="Door" parent="." unique_id=1985303590 instance=ExtResource("9_kek77")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6391382, 1.4999999, 2.3502464)
@@ -826,7 +818,7 @@ shape = SubResource("BoxShape3D_efxa6")
 [node name="Node3D" type="Node3D" parent="." unique_id=878287132]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4582233, 0, 5.0778875)
 
-[node name="stul" type="RigidBody3D" parent="Node3D" unique_id=1139182872]
+[node name="stul" type="RigidBody3D" parent="Node3D" unique_id=1139182872 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8707096, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/stul" unique_id=2003495158]
@@ -836,7 +828,7 @@ mesh = SubResource("BoxMesh_efxa6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/stul" unique_id=1368796836]
 shape = SubResource("BoxShape3D_4c57u")
 
-[node name="chain" type="RigidBody3D" parent="Node3D" unique_id=1497910773]
+[node name="chain" type="RigidBody3D" parent="Node3D" unique_id=1497910773 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.93804693, 1.2462718, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain" unique_id=484098445]
@@ -846,7 +838,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain" unique_id=1411226678]
 shape = SubResource("BoxShape3D_ycdy4")
 
-[node name="chain2" type="RigidBody3D" parent="Node3D" unique_id=156137364]
+[node name="chain2" type="RigidBody3D" parent="Node3D" unique_id=156137364 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.93804693, 1.7775277, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain2" unique_id=1263921010]
@@ -856,7 +848,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain2" unique_id=149948468]
 shape = SubResource("BoxShape3D_w48qg")
 
-[node name="chain3" type="RigidBody3D" parent="Node3D" unique_id=307300383]
+[node name="chain3" type="RigidBody3D" parent="Node3D" unique_id=307300383 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.93804693, 2.3127284, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain3" unique_id=247539738]
@@ -866,7 +858,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain3" unique_id=492764054]
 shape = SubResource("BoxShape3D_vivmo")
 
-[node name="chain4" type="RigidBody3D" parent="Node3D" unique_id=637635110]
+[node name="chain4" type="RigidBody3D" parent="Node3D" unique_id=637635110 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.93804693, 2.8410783, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain4" unique_id=1017905907]
@@ -876,7 +868,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain4" unique_id=749326820]
 shape = SubResource("BoxShape3D_2cqfq")
 
-[node name="chain5" type="RigidBody3D" parent="Node3D" unique_id=1146323077]
+[node name="chain5" type="RigidBody3D" parent="Node3D" unique_id=1146323077 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.93804693, 3.37786, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain5" unique_id=951151323]
@@ -886,7 +878,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain5" unique_id=1078810285]
 shape = SubResource("BoxShape3D_yaehf")
 
-[node name="chain6" type="RigidBody3D" parent="Node3D" unique_id=1559537855]
+[node name="chain6" type="RigidBody3D" parent="Node3D" unique_id=1559537855 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95852566, 1.2462718, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain6" unique_id=681967798]
@@ -896,7 +888,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain6" unique_id=1108778168]
 shape = SubResource("BoxShape3D_074og")
 
-[node name="chain7" type="RigidBody3D" parent="Node3D" unique_id=1504812163]
+[node name="chain7" type="RigidBody3D" parent="Node3D" unique_id=1504812163 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95852566, 1.7775277, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain7" unique_id=1553671751]
@@ -906,7 +898,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain7" unique_id=2118503731]
 shape = SubResource("BoxShape3D_cegan")
 
-[node name="chain8" type="RigidBody3D" parent="Node3D" unique_id=2094053834]
+[node name="chain8" type="RigidBody3D" parent="Node3D" unique_id=2094053834 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95852566, 2.3127284, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain8" unique_id=769990887]
@@ -916,7 +908,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain8" unique_id=923013406]
 shape = SubResource("BoxShape3D_82xsv")
 
-[node name="chain9" type="RigidBody3D" parent="Node3D" unique_id=1974848494]
+[node name="chain9" type="RigidBody3D" parent="Node3D" unique_id=1974848494 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95852566, 2.8410783, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain9" unique_id=352889689]
@@ -926,7 +918,7 @@ mesh = SubResource("BoxMesh_dg77c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/chain9" unique_id=1488048792]
 shape = SubResource("BoxShape3D_getpj")
 
-[node name="chain10" type="RigidBody3D" parent="Node3D" unique_id=656002991]
+[node name="chain10" type="RigidBody3D" parent="Node3D" unique_id=656002991 groups=["grabbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95852566, 3.37786, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/chain10" unique_id=232415492]
@@ -1236,7 +1228,7 @@ view_direction = 0
 portal_render_layer = 524288
 is_teleport = true
 teleport_direction = 2
-rigidbody_boost = 10.0
+rigidbody_boost = 0.0
 teleport_tolerance = 0.5
 teleport_interactions = 7
 teleport_collision_mask = 32768
@@ -1632,84 +1624,22 @@ mesh = SubResource("ArrayMesh_yaehf")
 [node name="Collider" type="CollisionShape3D" parent="Room2/CSGBox3D6/CSGBox3D7/Portal3D/TeleportArea" unique_id=1977258003]
 shape = SubResource("BoxShape3D_kq58d")
 
-[node name="floor" parent="." unique_id=409965900 instance=ExtResource("16_2cqfq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.533875, -2.9694767, 32.02719)
-
-[node name="Portal3D" type="Node3D" parent="floor" unique_id=467307947 node_paths=PackedStringArray("exit_portal") groups=["portals"]]
-process_priority = 100
-process_physics_priority = 100
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.591259, 0.28155768, 3.0958633)
-script = ExtResource("12_w48qg")
-_portal_mesh_path = NodePath("Portal3D_Mesh")
-_teleport_area_path = NodePath("TeleportArea")
-_teleport_collider_path = NodePath("TeleportArea/Collider")
-portal_size = Vector2(2, 3.215)
-exit_portal = NodePath("../Portal3D2")
-portal_frame_width = 0.0
-viewport_size_mode = 0
-view_direction = 1
-portal_render_layer = 524288
-is_teleport = true
-teleport_direction = 0
-rigidbody_boost = 0.0
-teleport_tolerance = 0.5
-teleport_interactions = 3
-teleport_collision_mask = 32768
-start_deactivated = false
-metadata/_custom_type_script = "uid://cw1r4c1d7beyv"
-metadata/_edit_group_ = true
-
-[node name="Portal3D_Mesh" type="MeshInstance3D" parent="floor/Portal3D" unique_id=2085683712]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
-layers = 524288
-material_override = ExtResource("13_vivmo")
-cast_shadow = 0
-mesh = SubResource("ArrayMesh_074og")
-
-[node name="TeleportArea" type="Area3D" parent="floor/Portal3D" unique_id=1358014004]
-
-[node name="Collider" type="CollisionShape3D" parent="floor/Portal3D/TeleportArea" unique_id=138551283]
-shape = SubResource("BoxShape3D_seu75")
-
-[node name="Portal3D2" type="Node3D" parent="floor" unique_id=686488427 node_paths=PackedStringArray("exit_portal") groups=["portals"]]
-process_priority = 100
-process_physics_priority = 100
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.591259, 5.507532, 3.0958633)
-script = ExtResource("12_w48qg")
-_portal_mesh_path = NodePath("Portal3D_Mesh")
-_teleport_area_path = NodePath("TeleportArea")
-_teleport_collider_path = NodePath("TeleportArea/Collider")
-portal_size = Vector2(2, 3.215)
-exit_portal = NodePath("../Portal3D")
-portal_frame_width = 0.0
-viewport_size_mode = 0
-view_direction = 1
-portal_render_layer = 524288
-is_teleport = true
-teleport_direction = 0
-rigidbody_boost = 0.0
-teleport_tolerance = 0.5
-teleport_interactions = 3
-teleport_collision_mask = 32768
-start_deactivated = false
-metadata/_custom_type_script = "uid://cw1r4c1d7beyv"
-metadata/_edit_group_ = true
-
-[node name="Portal3D_Mesh" type="MeshInstance3D" parent="floor/Portal3D2" unique_id=426284382]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
-layers = 524288
-material_override = ExtResource("13_vivmo")
-cast_shadow = 0
-mesh = SubResource("ArrayMesh_074og")
-
-[node name="TeleportArea" type="Area3D" parent="floor/Portal3D2" unique_id=75745974]
-
-[node name="Collider" type="CollisionShape3D" parent="floor/Portal3D2/TeleportArea" unique_id=1813765651]
-shape = SubResource("BoxShape3D_seu75")
-
 [node name="Test_item" parent="." unique_id=614296026 instance=ExtResource("17_yaehf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0046153, 2.4980621, 2.7975712)
+transform = Transform3D(-0.11511088, 0, -0.99335265, 0, 1, 0, 0.99335265, 0, -0.11511088, -2.0046153, 2.6583958, 2.7975712)
+
+[node name="Test_item2" parent="." unique_id=1092904155 instance=ExtResource("17_yaehf")]
+transform = Transform3D(-0.11511088, 0, -0.99335265, 0, 1, 0, 0.99335265, 0, -0.11511088, -2.0046153, 2.6583958, 3.9538062)
+
+[node name="Test_item3" parent="." unique_id=457705606 instance=ExtResource("17_yaehf")]
+transform = Transform3D(-0.11511088, 0, -0.99335265, 0, 1, 0, 0.99335265, 0, -0.11511088, -2.0046153, 2.6583958, 4.9771643)
+
+[node name="Test_item4" parent="." unique_id=1499809444 instance=ExtResource("17_yaehf")]
+transform = Transform3D(-0.11511088, 0, -0.99335265, 0, 1, 0, 0.99335265, 0, -0.11511088, -2.0046153, 2.6583958, 5.5985537)
+item = SubResource("Resource_ddm5b")
 
 [editable path="Player"]
 [editable path="Door"]
-[editable path="floor"]
+[editable path="Test_item"]
+[editable path="Test_item2"]
+[editable path="Test_item3"]
+[editable path="Test_item4"]

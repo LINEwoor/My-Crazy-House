@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ia3fvnxs1iwr"]
+
+[ext_resource type="PackedScene" uid="uid://5koe60r8jxai" path="res://backrooms.blend" id="1_bx0ca"]
+[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://Player/player.tscn" id="2_g6uxr"]
+
+[node name="backrooms" unique_id=2136316610 instance=ExtResource("1_bx0ca")]
+
+[node name="Player" parent="." index="183" unique_id=1565813645 instance=ExtResource("2_g6uxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6164637, 0.15578282, 0)

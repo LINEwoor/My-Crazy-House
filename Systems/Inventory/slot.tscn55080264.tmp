@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://drdqvbtmccna8"]
+
+[ext_resource type="Texture2D" uid="uid://ey0ivxhfmmoh" path="res://Temp/8e33fa90c71e445c9ce287acc0eea64e.jpg" id="1_8ki70"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fqbu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="GDScript" id="GDScript_u2bia"]
+script/source = "extends Panel
+class_name Slot_UI
+
+@onready var panel: Panel = $Panel
+@onready var texture_rect: TextureRect = $TextureRect
+@onready var label_counter: Label = $Label
+
+var default_color: Color = Color(0.184, 0.184, 0.184)
+var selected_color: Color = Color(0.779, 0.552, 0.0)
+
+func _ready() -> void:
+	set_selected(false)
+
+func set_selected(selected: bool):
+	if selected:
+		panel.modulate = selected_color
+	else:
+		panel.modulate = default_color
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s4f18"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Slot" type="Panel" unique_id=1603269597]
+custom_minimum_size = Vector2(75, 75)
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fqbu")
+script = SubResource("GDScript_u2bia")
+
+[node name="Panel" type="Panel" parent="." unique_id=1359966067]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s4f18")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=541469406]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8ki70")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="." unique_id=1222205495]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "3x"
+horizontal_alignment = 2

@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://bud7r2ttsxpgt"]
+
+[ext_resource type="PackedScene" uid="uid://cba1sqdoy0lcn" path="res://backrooms.glb" id="1_p0pli"]
+[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://Player/player.tscn" id="2_fgyff"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fgyff"]
+
+[sub_resource type="Sky" id="Sky_p0pli"]
+sky_material = SubResource("ProceduralSkyMaterial_fgyff")
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+sky = SubResource("Sky_p0pli")
+ambient_light_source = 2
+tonemap_mode = 4
+ssr_enabled = true
+ssao_enabled = true
+sdfgi_enabled = true
+sdfgi_cascades = 8
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.27224, 0.054996237, 0.41021934, 1)
+
+[node name="Node3D" type="Node3D" unique_id=1076063958]
+
+[node name="backrooms" parent="." unique_id=761712643 instance=ExtResource("1_p0pli")]
+
+[node name="Player" parent="." unique_id=1565813645 instance=ExtResource("2_fgyff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7512975, -0.10000014, 6.4868217)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=781547137]
+environment = SubResource("Environment_g4v7s")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1924590096]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 4.745352, 1.5376619, -0.9193876)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=411573373]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.9967117, 1.5376619, -5.011566)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=1221854530]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.6201816, 1.5376619, -5.011566)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="." unique_id=1934309465]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7613354, 1.5376619, -3.1006813)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="." unique_id=2017121521]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7613354, 1.5376619, 2.9204092)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="." unique_id=526279012]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 4.763378, 1.5376619, 2.9204092)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="." unique_id=1936112994]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 8.765419, 1.5376619, 2.9204092)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="." unique_id=758417958]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 12.857595, 1.5376619, 2.9204092)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="." unique_id=1720880420]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 16.697392, 1.5376619, 2.9204092)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="." unique_id=814712530]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.6205177, 1.5376619, 8.893127)
+shadow_enabled = true
+spot_angle = 82.76
+
+[node name="SpotLight3D11" type="SpotLight3D" parent="." unique_id=2064126905]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.6164632, 1.5376619, 8.893127)
+shadow_enabled = true
+spot_angle = 82.76

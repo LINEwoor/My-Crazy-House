@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bvvpbiun37256"]
+
+[ext_resource type="Script" uid="uid://cloiekmtiftpb" path="res://UI/Volume/VolumeSlider.gd" id="1_v55si"]
+
+[node name="Master" type="HBoxContainer" unique_id=1513834835]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="." unique_id=826909425]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
+text = "Master"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="." unique_id=182381819]
+process_mode = 3
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+value = 0.001
+script = ExtResource("1_v55si")
