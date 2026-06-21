@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dbjp0v15cvr7d"]
+
+[ext_resource type="Script" uid="uid://gnw3i3xxg4vn" path="res://Items/PickupItem.gd" id="1_qvdpe"]
+[ext_resource type="Resource" uid="uid://botjx3yqgfjen" path="res://Items/Keys/Test_Key.tres" id="2_p7skj"]
+[ext_resource type="PackedScene" uid="uid://byvmct08213nd" path="res://Items/Keys/Key_model.tscn" id="3_g57pe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g57pe"]
+size = Vector3(0.61765134, 0.3037842, 0.22603759)
+
+[node name="Test_item" type="RigidBody3D" unique_id=1092904155 groups=["grabbable"]]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+collision_layer = 32769
+script = ExtResource("1_qvdpe")
+item = ExtResource("2_p7skj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1034326691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16534427, -0.0063110255, -0.0015686154)
+shape = SubResource("BoxShape3D_g57pe")
+
+[node name="Node3D" parent="." unique_id=628579363 instance=ExtResource("3_g57pe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://b7jbyi8kpii37"]
+
+[ext_resource type="Script" uid="uid://drdx50efv73gk" path="res://Systems/Inventory/InventoryUI.gd" id="1_ni35v"]
+[ext_resource type="Script" uid="uid://cf02xif82sjsk" path="res://Systems/Inventory/Inventory.gd" id="1_sfoqn"]
+[ext_resource type="PackedScene" uid="uid://drdqvbtmccna8" path="res://Systems/Inventory/slot.tscn" id="3_tsv3o"]
+[ext_resource type="AudioStream" uid="uid://c0kpr5jx43pa1" path="res://Audio/minecraft-click_tt2jbLyp.mp3" id="5_tsv3o"]
+
+[node name="Inventory" type="Node" unique_id=1330967754]
+script = ExtResource("1_sfoqn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1748227135 node_paths=PackedStringArray("slots_container")]
+script = ExtResource("1_ni35v")
+slots_container = NodePath("HBoxContainer")
+slot_prefab = ExtResource("3_tsv3o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=306876481]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -99.0
+offset_right = 144.0
+offset_bottom = -22.080017
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 18
+
+[node name="Slot" parent="CanvasLayer/HBoxContainer" unique_id=1603269597 instance=ExtResource("3_tsv3o")]
+layout_mode = 2
+
+[node name="Slot2" parent="CanvasLayer/HBoxContainer" unique_id=517172330 instance=ExtResource("3_tsv3o")]
+layout_mode = 2
+
+[node name="Slot3" parent="CanvasLayer/HBoxContainer" unique_id=1003995511 instance=ExtResource("3_tsv3o")]
+layout_mode = 2
+
+[node name="Slot4" parent="CanvasLayer/HBoxContainer" unique_id=1448213291 instance=ExtResource("3_tsv3o")]
+layout_mode = 2
+
+[node name="Slot5" parent="CanvasLayer/HBoxContainer" unique_id=173746304 instance=ExtResource("3_tsv3o")]
+layout_mode = 2
+
+[node name="ItemNameLabel" type="Label" parent="CanvasLayer" unique_id=883336429]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -43.0
+offset_top = -174.0
+offset_right = 44.0
+offset_bottom = -151.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Item Name"
+horizontal_alignment = 1
+
+[node name="ItemDescriptionLabel" type="Label" parent="CanvasLayer" unique_id=1106930276]
+custom_maximum_size = Vector2(250, 50)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -148.0
+offset_right = 67.0
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Item Description "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="CanvasLayer" unique_id=393443101]
+stream = ExtResource("5_tsv3o")
+pitch_scale = 2.58
+bus = &"SFX"
+
+[node name="SelectEmptySound" type="AudioStreamPlayer" parent="CanvasLayer" unique_id=1008935703]
+stream = ExtResource("5_tsv3o")
+pitch_scale = 4.02
+bus = &"SFX"
