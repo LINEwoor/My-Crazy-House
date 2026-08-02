@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cba1sqdoy0lcn"
-path="res://.godot/imported/backrooms.glb-ced777c2701cfa64e5b1d3aa5772296f.scn"
+uid="uid://dw52dqnq16igr"
+path="res://.godot/imported/OutDoor1.glb-7b95a286b48f358322a0d4818fae8dbf.scn"
 
 [deps]
 
-source_file="res://backrooms.glb"
-dest_files=["res://.godot/imported/backrooms.glb-ced777c2701cfa64e5b1d3aa5772296f.scn"]
+source_file="res://Models/OutDoor1.glb"
+dest_files=["res://.godot/imported/OutDoor1.glb-7b95a286b48f358322a0d4818fae8dbf.scn"]
 
 [params]
 

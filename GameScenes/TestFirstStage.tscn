@@ -1,0 +1,305 @@
+[gd_scene format=4 uid="uid://vff0itevoi7a"]
+
+[ext_resource type="Material" uid="uid://dlu1d11oy3b8e" path="res://Gridbox materials/gridboxes/gridbox_dark.tres" id="1_xis71"]
+[ext_resource type="Script" uid="uid://cw1r4c1d7beyv" path="res://addons/portals/scripts/portal_3d.gd" id="2_6n0cb"]
+[ext_resource type="Material" uid="uid://dcfkcyddxkglf" path="res://addons/portals/materials/editor-preview-portal-material.tres" id="3_c2gl1"]
+[ext_resource type="Script" uid="uid://bxcel82b180o3" path="res://addons/portals/scripts/portal_boxmesh.gd" id="4_orspp"]
+[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://Player/player.tscn" id="5_s32rt"]
+[ext_resource type="PackedScene" uid="uid://dw52dqnq16igr" path="res://Models/OutDoor1.glb" id="6_6n0cb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2gl1"]
+
+[sub_resource type="Sky" id="Sky_6n0cb"]
+sky_material = SubResource("ProceduralSkyMaterial_c2gl1")
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+background_mode = 2
+sky = SubResource("Sky_6n0cb")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jjjc0"]
+_surfaces = [{
+"aabb": AABB(-0.75, -1.25, -1, 1.5, 2.5, 1),
+"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/AACAPw=="),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAQABAABAAUAAQADAAUABQADAAcAAwACAAcABwACAAYAAgAAAAYABgAAAAQABAAFAAYABgAFAAcAAAABAAIAAgABAAMA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AABAvwAAoD8AAAAAAABAPwAAoD8AAAAAAABAvwAAoL8AAAAAAABAPwAAoL8AAAAAAABAvwAAoD8AAIC/AABAPwAAoD8AAIC/AABAvwAAoL8AAIC/AABAPwAAoL8AAIC//3//f/9/AID/f/9//38AgP9//3//fwCA/3//f/9/AID/f/9//38AgP9//3//fwCA/3//f/9/AID/f/9//38AgA==")
+}]
+script = ExtResource("4_orspp")
+size = Vector3(1.5, 2.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ebrqo"]
+size = Vector3(1.5, 2.5, 1)
+
+[node name="TestLevel" type="Node3D" unique_id=107905664]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2099451586]
+environment = SubResource("Environment_g4v7s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1567519896]
+transform = Transform3D(0.8781768, -0.3585231, 0.31664914, 0.112525605, 0.79824305, 0.5917313, -0.46491235, -0.48401362, 0.7413416, 0, 16.18077, 0)
+shadow_enabled = true
+shadow_bias = 0.05
+
+[node name="Level" type="Node3D" parent="." unique_id=1088774503]
+
+[node name="Floor" type="CSGBox3D" parent="Level" unique_id=2069040622]
+material_override = ExtResource("1_xis71")
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="House" type="Node3D" parent="Level" unique_id=805118741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22597551, 3.9795747, -0.479084)
+
+[node name="Indoor" type="Node3D" parent="Level" unique_id=1958772605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6969621, -55.72917, 0.03334999)
+
+[node name="Weel" type="Node3D" parent="Level/Indoor" unique_id=388137260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8831291, -4.585121, -20.55654)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=881812383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015453339, 0.9628334, -0.016103745)
+radius = 3.845
+height = 1.0
+sides = 12
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=1784266477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015453339, 1.614109, -0.016103745)
+radius = 3.845
+height = 0.31628418
+sides = 12
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Level/Indoor/Weel/CSGCylinder3D3" unique_id=1042024656]
+operation = 2
+radius = 3.6230469
+height = 1.0
+sides = 12
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=233486075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015453339, 2.068119, -0.016103745)
+radius = 0.60546875
+height = 3.2105713
+sides = 12
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=132009957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0288744, 1.8633003, -0.016103745)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=1637627965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5699434, 1.8633003, -1.5597782)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=1920428715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015455246, 1.8633003, -2.227316)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=1883284007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7468758, 1.8633003, -1.3720341)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=1992026576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2892475, 1.8633003, 0.0256176)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=1946453547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.934618, 1.8633003, 1.4232693)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=834438038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.66212845, 1.8633003, 2.090807)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=249823552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9232712, 1.8633003, 1.9656467)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="Level/Indoor/Weel" unique_id=923162403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8202715, 1.8633003, 1.172945)
+radius = 0.063964844
+height = 0.9985657
+sides = 12
+
+[node name="DoorHole2" type="CSGBox3D" parent="Level/Indoor" unique_id=275917891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9276395, -2.0739288, -0.7320883)
+use_collision = true
+size = Vector3(6.260803, 4, 0.993042)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Level/Indoor/DoorHole2" unique_id=1962069797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.059211373, -0.75201416, -0.47595334)
+operation = 2
+use_collision = true
+size = Vector3(1.5, 2.5195313, 3.0439477)
+
+[node name="Portal3D" type="Node3D" parent="Level/Indoor/DoorHole2" unique_id=707510678 node_paths=PackedStringArray("exit_portal") groups=["portals"]]
+process_priority = 100
+process_physics_priority = 100
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.073625565, -0.74320984, -0.49742985)
+script = ExtResource("2_6n0cb")
+_portal_mesh_path = NodePath("Portal3D_Mesh")
+_teleport_area_path = NodePath("TeleportArea")
+_teleport_collider_path = NodePath("TeleportArea/Collider")
+portal_size = Vector2(1.5, 2.5)
+exit_portal = NodePath("../Portal3D2")
+portal_frame_width = 0.0
+viewport_size_mode = 0
+view_direction = 0
+portal_render_layer = 524288
+is_teleport = true
+teleport_direction = 2
+rigidbody_boost = 0.0
+teleport_tolerance = 0.5
+teleport_interactions = 3
+teleport_collision_mask = 32768
+start_deactivated = false
+metadata/_custom_type_script = "uid://cw1r4c1d7beyv"
+metadata/_edit_group_ = true
+
+[node name="Portal3D_Mesh" type="MeshInstance3D" parent="Level/Indoor/DoorHole2/Portal3D" unique_id=918701115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+layers = 524288
+material_override = ExtResource("3_c2gl1")
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_jjjc0")
+
+[node name="TeleportArea" type="Area3D" parent="Level/Indoor/DoorHole2/Portal3D" unique_id=2088014380]
+
+[node name="Collider" type="CollisionShape3D" parent="Level/Indoor/DoorHole2/Portal3D/TeleportArea" unique_id=1430169045]
+shape = SubResource("BoxShape3D_ebrqo")
+
+[node name="Portal3D2" type="Node3D" parent="Level/Indoor/DoorHole2" unique_id=2104229798 node_paths=PackedStringArray("exit_portal") groups=["portals"]]
+process_priority = 100
+process_physics_priority = 100
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, -0.6858518, 61.961617, -18.717077)
+script = ExtResource("2_6n0cb")
+_portal_mesh_path = NodePath("Portal3D_Mesh")
+_teleport_area_path = NodePath("TeleportArea")
+_teleport_collider_path = NodePath("TeleportArea/Collider")
+portal_size = Vector2(1.5, 2.5)
+exit_portal = NodePath("../Portal3D")
+portal_frame_width = 0.0
+viewport_size_mode = 0
+view_direction = 0
+portal_render_layer = 524288
+is_teleport = true
+teleport_direction = 2
+rigidbody_boost = 0.0
+teleport_tolerance = 0.5
+teleport_interactions = 3
+teleport_collision_mask = 32768
+start_deactivated = false
+metadata/_custom_type_script = "uid://cw1r4c1d7beyv"
+metadata/_edit_group_ = true
+
+[node name="Portal3D_Mesh" type="MeshInstance3D" parent="Level/Indoor/DoorHole2/Portal3D2" unique_id=850414955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+layers = 524288
+material_override = ExtResource("3_c2gl1")
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_jjjc0")
+
+[node name="TeleportArea" type="Area3D" parent="Level/Indoor/DoorHole2/Portal3D2" unique_id=134980269]
+
+[node name="Collider" type="CollisionShape3D" parent="Level/Indoor/DoorHole2/Portal3D2/TeleportArea" unique_id=2047407149]
+shape = SubResource("BoxShape3D_ebrqo")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Level/Indoor" unique_id=904711818]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.114624, -4.5778065, -25.22151)
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Level/Indoor" unique_id=2142092745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.114624, 16.926826, -25.22151)
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Level/Indoor" unique_id=2139394998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0389404, 6.4614143, -49.716064)
+use_collision = true
+size = Vector3(49.848633, 21.202118, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Level/Indoor" unique_id=617925523]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -27.45566, 6.3797493, -24.855255)
+use_collision = true
+size = Vector3(49.290283, 21.038788, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Level/Indoor" unique_id=275223348]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21.32895, 6.356434, -24.855255)
+use_collision = true
+size = Vector3(49.290283, 20.992157, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Level/Indoor" unique_id=1462282120]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -15.987965, 6.4008064, -0.73218495)
+use_collision = true
+size = Vector3(22.165321, 21.080902, 1)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Level/Indoor" unique_id=2031281286]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.9671268, 8.119198, -0.73218495)
+use_collision = true
+size = Vector3(6.151161, 16.810959, 1)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Level/Indoor" unique_id=1965619384]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 11.119584, 6.228443, -0.7321847)
+use_collision = true
+size = Vector3(20.057083, 20.736176, 1)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Level/Indoor" unique_id=886246565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8330841, 0.95289993, -43.755634)
+use_collision = true
+size = Vector3(8.741455, 10.181719, 10.96582)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Level/Indoor" unique_id=764641072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.027412, 0.95289993, -43.755634)
+use_collision = true
+size = Vector3(12.026001, 10.181719, 10.96582)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Level/Indoor" unique_id=826776078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.094124, 0.95289993, -43.755634)
+use_collision = true
+size = Vector3(9.471008, 10.181719, 10.96582)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Level/Indoor" unique_id=1790406089]
+transform = Transform3D(1, 0, 0, 0, 0.82973796, -0.55815315, 0, 0.55815315, 0.82973796, -10.654347, 0.23122025, -41.580025)
+use_collision = true
+size = Vector3(8.741455, 0.86539555, 19.068787)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Level/Indoor" unique_id=124973480]
+transform = Transform3D(1, 0, 0, 0, 0.82973796, -0.55815315, 0, 0.55815315, 0.82973796, 7.0276766, 0.23122025, -41.580025)
+use_collision = true
+size = Vector3(8.741455, 0.86539555, 19.068787)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Level/Indoor" unique_id=714286472]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.8172176, 15.394558, -18.715797)
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 26.763885
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Level/Indoor/SpotLight3D" unique_id=32016096]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2234776, 4.531845, -8.204144)
+light_color = Color(0.61245716, 0.587234, 0.48166507, 1)
+light_energy = 2.854
+omni_range = 34.779
+
+[node name="Player" parent="." unique_id=1565813645 instance=ExtResource("5_s32rt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.807688, 1.4000002, 7.1467905)
+
+[node name="OutDoor1" parent="." unique_id=113416525 instance=ExtResource("6_6n0cb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5990181, 0.41580248, -19.494991)
