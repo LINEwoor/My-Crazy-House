@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dqienpxng4jjr" path="res://Player/Components/grab_objects_component.gd" id="9_b26j0"]
 [ext_resource type="Script" uid="uid://expchj3p7k3g" path="res://Player/Components/InteractiveReader.gd" id="10_apopc"]
 [ext_resource type="PackedScene" uid="uid://df6uj5qq64c5h" path="res://UI/InGameMenu/menu.tscn" id="10_x3vf3"]
+[ext_resource type="PackedScene" uid="uid://b7jbyi8kpii37" path="res://Systems/Inventory/Inventory.tscn" id="12_5htga"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
 radius = 0.4
@@ -116,8 +117,12 @@ height = 8
 fill = 1
 fill_from = Vector2(0.5, 0.4871795)
 
-[node name="Player" type="CharacterBody3D" unique_id=1565813645 node_paths=PackedStringArray("hand", "animator", "roof_checker", "push_component") groups=["Player"]]
-collision_layer = 32769
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_apopc"]
+radius = 0.4
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" unique_id=1565813645 node_paths=PackedStringArray("hand", "inventory", "animator", "roof_checker", "push_component") groups=["player"]]
+collision_layer = 32770
 floor_max_angle = 1.134464
 platform_floor_layers = 0
 script = ExtResource("1_onrkg")
@@ -129,12 +134,14 @@ jump_height = 1.0
 air_control = 0.1
 jump_buffer_time = 0.1
 crouch_buffer_time = 0.1
+inventory = NodePath("Components/Inventory")
 animator = NodePath("AnimationPlayer")
-roof_checker = NodePath("Head/Bobbong_pivot/RoofChecker")
+roof_checker = NodePath("ShapeCast3D")
 push_component = NodePath("Components/PushRigidbodiesComponent")
 
 [node name="Stand_MeshInstance3D" type="MeshInstance3D" parent="." unique_id=649816261]
 visible = false
+layers = 2
 material_override = ExtResource("1_4flbx")
 mesh = SubResource("CapsuleMesh_onrkg")
 
@@ -142,6 +149,7 @@ mesh = SubResource("CapsuleMesh_onrkg")
 shape = SubResource("CapsuleShape3D_i3pqv")
 
 [node name="Chrouch_MeshInstance3D" type="MeshInstance3D" parent="." unique_id=505254066]
+layers = 2
 mesh = SubResource("CapsuleMesh_1jxqw")
 
 [node name="Chrouch_CollisionShape3D" type="CollisionShape3D" parent="." unique_id=443398522]
@@ -178,6 +186,8 @@ target_position = Vector3(0, 0.85, 0)
 transform = Transform3D(0.97132134, 0.2263551, 0.07278757, -0.17524865, 0.88843435, -0.4242319, -0.160694, 0.39930958, 0.9026236, 0.7768723, -0.52956945, -0.91862535)
 
 [node name="Components" type="Node" parent="." unique_id=64279726]
+
+[node name="Inventory" parent="Components" unique_id=1330967754 groups=["Inventory"] instance=ExtResource("12_5htga")]
 
 [node name="Bobbing_node" type="Node" parent="Components" unique_id=1430281151 node_paths=PackedStringArray("player", "bobbing_pivot")]
 script = ExtResource("5_1jxqw")
@@ -243,3 +253,7 @@ offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_57qmd")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="." unique_id=560698034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01, 0)
+shape = SubResource("CapsuleShape3D_apopc")

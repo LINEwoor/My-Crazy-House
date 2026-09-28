@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="My Crazy House"
-run/main_scene="uid://vff0itevoi7a"
+run/main_scene="uid://c7et6ax587yfl"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=60
 config/icon="res://Sprites/icon.svg"
@@ -24,21 +24,23 @@ buses/default_bus_layout="uid://chub4c55as0fu"
 
 G="*uid://4t1na1g0sq0"
 DebugMenu="*uid://cggqb75a8w8r"
-Inventory="*uid://b7jbyi8kpii37"
+Inventory="*uid://cf02xif82sjsk"
 
 [display]
 
+window/size/mode=4
 window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/portals/plugin.cfg")
+enabled=PackedStringArray("res://addons/Color grading/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/portals/plugin.cfg")
 
 [global_group]
 
-Player=""
 grabbable=""
 portal_lights=""
+player=""
+Inventory=""
 
 [input]
 

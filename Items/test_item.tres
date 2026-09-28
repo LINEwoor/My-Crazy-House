@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://bdt5nvuktcecs" path="res://Items/Item.gd" id="1_8yo1o"]
 [ext_resource type="Texture2D" uid="uid://c3iefeucxf12a" path="res://Sprites/icon.svg" id="1_gj7he"]
 [ext_resource type="PackedScene" uid="uid://bi674ftbeg3tk" path="res://Systems/InteractiveObjects/door.tscn" id="2_arbuj"]
+[ext_resource type="PackedScene" uid="uid://byvmct08213nd" path="res://Items/Keys/Key_model.tscn" id="2_f35sa"]
 
 [resource]
 script = ExtResource("1_8yo1o")
 item_name = "Test Item"
 description = "It`s test  item"
 item_mesh = ExtResource("2_arbuj")
+interactable_scene = ExtResource("2_f35sa")
 metadata/_custom_type_script = "uid://bdt5nvuktcecs"

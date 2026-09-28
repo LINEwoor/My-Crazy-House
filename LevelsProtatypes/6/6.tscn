@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://bbqaap2t8ng76"]
+
+[ext_resource type="Material" uid="uid://dlu1d11oy3b8e" path="res://Gridbox materials/gridboxes/gridbox_dark.tres" id="1_o8cf8"]
+[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://Player/player.tscn" id="2_ilquv"]
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+sdfgi_read_sky_light = false
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+
+[sub_resource type="FogMaterial" id="FogMaterial_ilquv"]
+density = 50.0
+
+[node name="6" type="Node3D" unique_id=916071354]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=714816620]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -99.74071, -4.0200195)
+material_override = ExtResource("1_o8cf8")
+use_collision = true
+size = Vector3(10, 200.48141, 18.04004)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGBox3D" unique_id=1348743448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -105.46623, 0)
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGBox3D" unique_id=552934061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100.080475, 0)
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D" unique_id=1858661808]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -102.46623, -24.723724)
+use_collision = true
+size = Vector3(50, 1, 5)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D" unique_id=828444511]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -102.46623, 24.213047)
+use_collision = true
+size = Vector3(50, 1, 5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D" unique_id=1956449204]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, -24.59121, -102.46623, -0.980299)
+use_collision = true
+size = Vector3(50, 1, 5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGBox3D" unique_id=1883649020]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 24.826714, -102.46623, -0.980299)
+use_collision = true
+size = Vector3(50, 1, 5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D" unique_id=490241845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.099594116, 2.9372406, -4.3595886)
+material_override = ExtResource("1_o8cf8")
+operation = 2
+use_collision = true
+size = Vector3(3, 207.182, 3)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=771922641]
+environment = SubResource("Environment_g4v7s")
+
+[node name="Player" parent="." unique_id=1565813645 instance=ExtResource("2_ilquv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+
+[node name="FogVolume" type="FogVolume" parent="." unique_id=1974424512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109313965, -79.88815, -8.308057)
+size = Vector3(4, 156.42279, 4)
+material = SubResource("FogMaterial_ilquv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1254340712]
+transform = Transform3D(1, 0, 0, 0, 0.8824931, 0.47032535, 0, -0.47032535, 0.8824931, 0, 4.9902043, 0)
+light_energy = 0.1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1170477430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -202.11827, -5.5003242)

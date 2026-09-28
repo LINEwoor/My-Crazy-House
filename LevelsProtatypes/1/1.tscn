@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://eq28ha113okj"]
+
+[ext_resource type="Material" uid="uid://dlu1d11oy3b8e" path="res://Gridbox materials/gridboxes/gridbox_dark.tres" id="1_o7u3m"]
+[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://Player/player.tscn" id="2_olqhf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d0u6y"]
+
+[sub_resource type="Sky" id="Sky_yf5fn"]
+sky_material = SubResource("ProceduralSkyMaterial_d0u6y")
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+background_mode = 2
+sky = SubResource("Sky_yf5fn")
+
+[node name="1" type="Node3D" unique_id=2034741550]
+
+[node name="Level" type="Node3D" parent="." unique_id=1843833413]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Level" unique_id=838908995]
+material_override = ExtResource("1_o7u3m")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Level/CSGBox3D" unique_id=1526281182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.737776, 2.308838, 0)
+material_override = ExtResource("1_o7u3m")
+use_collision = true
+size = Vector3(1, 5.618, 20)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Level/CSGBox3D" unique_id=137128691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9874115, 2.308838, 5.1061707)
+material_override = ExtResource("1_o7u3m")
+use_collision = true
+size = Vector3(1, 5.618, 9.542664)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Level/CSGBox3D/CSGBox3D6" unique_id=1149217544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0023498535, -1.1625007, 0.18307018)
+material_override = ExtResource("1_o7u3m")
+operation = 2
+use_collision = true
+size = Vector3(1.7608032, 1.3560688, 1.3765125)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Level/CSGBox3D" unique_id=389739637]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.4788074, 2.308838, 0.6375527)
+material_override = ExtResource("1_o7u3m")
+use_collision = true
+size = Vector3(1, 5.618, 11.94162)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Level/CSGBox3D/CSGBox3D7" unique_id=1222751880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0068217516, -0.6777382, 0.17398667)
+material_override = ExtResource("1_o7u3m")
+operation = 2
+use_collision = true
+size = Vector3(1.494, 2.8276367, 1.6)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Level/CSGBox3D" unique_id=389751008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.643274, 2.308838, 0)
+material_override = ExtResource("1_o7u3m")
+use_collision = true
+size = Vector3(1, 5.618, 20)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Level/CSGBox3D" unique_id=1541571682]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.016828537, 2.308838, -9.505093)
+material_override = ExtResource("1_o7u3m")
+use_collision = true
+size = Vector3(1, 5.618, 20.315857)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Level/CSGBox3D" unique_id=1625985163]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.174757, 2.308838, 9.503978)
+material_override = ExtResource("1_o7u3m")
+use_collision = true
+size = Vector3(0.9609375, 5.618, 20)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1595798254]
+environment = SubResource("Environment_g4v7s")
+
+[node name="Player" parent="." unique_id=1565813645 instance=ExtResource("2_olqhf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1815557, 1.4000001, 7.7544966)

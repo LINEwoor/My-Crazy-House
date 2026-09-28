@@ -6,7 +6,7 @@ class_name InteractiveButton
 func Interactive(character):
 	if objects.size() == 0: return
 	onInteractive.emit()
-	 
+	
 	for object in objects:
 		if object is InteractiveObject:
 			object.Interactive(self)

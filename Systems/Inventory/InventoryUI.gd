@@ -26,29 +26,29 @@ func _ready() -> void:
 	hide_timer.one_shot = true
 	hide_timer.timeout.connect(_on_display_timeout)
 	add_child(hide_timer)
-	
+
 	item_name_label.modulate.a = 0.0
 	item_description_label.modulate.a = 0.0
 	item_name_label.visible = false
 	item_description_label.visible = false
-	
+
 	for i in slots_container.get_child_count():
 		slots_container.get_child(i).queue_free()
-	
+
 	for i in Inventory.MAX_SLOTS:
 		var slot = slot_prefab.instantiate()
 		slots_container.add_child(slot)
 		slots.append(slot)
-	
+
 	Inventory.inventory_updated.connect(_on_inventory_updated)
 	Inventory.slot_selected.connect(_on_slot_selected)
-	
+
 	update_all_slots()
 
 func update_slot(index : int):
 	var item = Inventory.slots[index]
 	var slot = slots[index]
-	
+
 	if item:
 		slot.texture_rect.texture = item.icon
 		slot.texture_rect.visible = true
@@ -62,12 +62,12 @@ func update_all_slots():
 func _on_slot_selected(index: int):
 	for slot in slots:
 		slot.set_selected(false)
-	
+
 	if index < slots.size():
 		slots[index].set_selected(true)
 		var item = Inventory.slots[index]
 		_show_item_info(item)
-		
+
 		if item:
 			select_sound.play()
 		else:
@@ -83,20 +83,20 @@ func _show_item_info(item: Item):
 	if item:
 		_stop_all_animations()
 	hide_timer.stop()
-	
+
 	if item:
 		current_item = item
 		is_visible = true
-		
+
 		item_name_label.text = item.item_name
 		item_description_label.text = item.description
-		
+
 		item_name_label.visible = true
 		item_description_label.visible = true
-		
+
 		item_name_label.modulate.a = 0.0
 		item_description_label.modulate.a = 0.0
-		
+
 		show_tween = create_tween()
 		show_tween.set_parallel(true)
 		show_tween.tween_property(item_name_label, "modulate:a", 1.0, fade_duration)
@@ -115,13 +115,13 @@ func _on_display_timeout():
 func _hide_item_info():
 	if not is_visible:
 		return
-	
+
 	is_visible = false
 	hide_timer.stop()
-	
+
 	if show_tween and show_tween.is_running():
 		show_tween.stop()
-	
+
 	hide_tween = create_tween()
 	hide_tween.set_parallel(true)
 	hide_tween.tween_property(item_name_label, "modulate:a", 0.0, fade_duration)
@@ -138,6 +138,6 @@ func _on_hide_complete():
 func _stop_all_animations():
 	if show_tween and show_tween.is_running():
 		show_tween.stop()
-	
+
 	if hide_tween and hide_tween.is_running():
 		hide_tween.stop()

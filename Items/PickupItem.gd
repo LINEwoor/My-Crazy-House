@@ -8,5 +8,5 @@ func _ready() -> void:
 	object_name = item.item_name
 
 func Interactive(character : Node):
-	if Inventory.add_item(item):
-		call_deferred("queue_free")
+	Inventory.add_item( item)
+	queue_free.call_deferred()

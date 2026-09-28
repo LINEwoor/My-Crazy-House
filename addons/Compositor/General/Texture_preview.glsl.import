@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dsqyfr0mgqxce"
+path="res://.godot/imported/Texture_preview.glsl-8d3151399cae84cfa242177e0d937a3d.res"
+
+[deps]
+
+source_file="res://addons/Compositor/General/Texture_preview.glsl"
+dest_files=["res://.godot/imported/Texture_preview.glsl-8d3151399cae84cfa242177e0d937a3d.res"]
+
+[params]
+
