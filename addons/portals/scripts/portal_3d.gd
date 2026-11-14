@@ -275,6 +275,9 @@ enum ViewDirection {
 	ONLY_FRONT,
 ## Corresponds to portal's BACK direction (+Z)
 	ONLY_BACK,
+## Портал не рендерит ни front, ни back. Меш скрыт в обычном состоянии.
+## При телепортации меш временно появляется и плавно затухает по alpha (fade).
+	ONLY_TRANSITION,
 }
 
 ## The direction from which you expect the portal to be viewed. Restricting this restricts the
@@ -282,7 +285,12 @@ enum ViewDirection {
 ## Restrict this if the portal can be seen from the sides and has no portal frame around it to 
 ## cover the shifting mesh.[br][br]
 ## Also see [member teleport_direction]
-var view_direction: ViewDirection = ViewDirection.FRONT_AND_BACK
+var view_direction: ViewDirection = ViewDirection.FRONT_AND_BACK:
+	set(v):
+		view_direction = v
+		# Сеттер может сработать до _ready()/_editor_ready(), когда меша ещё нет.
+		if is_node_ready():
+			_update_mesh_visibility()
 
 
 ## The [member portal_mesh] setting for [member VisualInstance3D.layers], so that the portal 
@@ -369,6 +377,22 @@ var teleport_collision_mask: int = 1 << 15
 ## It will also not be processed.[br][br]
 ## You have to call [method activate] on it to wake it up! Also see [method disable]
 var start_deactivated: bool = false
+
+#region [FADE] Public API
+
+## Длительность fade при телепортации (в секундах).
+## Меш выходного портала временно появляется и плавно затухает по alpha (1 → 0).
+## 0 — без эффекта.
+var fade_duration: float = 0.5
+
+## Если включено, портал исчезает и появляется обратно при касании игроком.
+## Настраивается отдельно для каждого портала.
+var fade_on_player_touch: bool = false
+
+## Длительность исчезновения и повторного появления при касании (каждая фаза).
+var touch_fade_duration: float = 0.35
+
+#endregion
 
 #region INTERNALS
 
@@ -528,6 +552,9 @@ func _ready() -> void:
 	mat.shader = _PORTAL_SHADER
 	portal_mesh.material_override = mat
 
+	# Применяем видимость меша согласно view_direction
+	_update_mesh_visibility()
+
 	if not start_deactivated:
 		_setup_cameras()
 		get_viewport().size_changed.connect(_on_window_resize)
@@ -556,13 +583,13 @@ func _process(_delta: float) -> void:
 
 func _process_cameras() -> void:
 	if portal_camera == null:
-		push_error("%s: No portal camera" % name)
+		#push_error("%s: No portal camera" % name)
 		return
 	if player_camera == null:
 		push_error("%s: No player camera" % name)
 		return
 	if exit_portal == null:
-		push_error("%s: No exit portal" % name)
+		#push_error("%s: No exit portal" % name)
 		return
 
 	# Update camera
@@ -586,8 +613,15 @@ func _process_cameras() -> void:
 			portal_shift = -1
 		ViewDirection.FRONT_AND_BACK:
 			portal_shift = 1 if player_in_front_of_portal else -1
+		ViewDirection.ONLY_TRANSITION:
+			# В ONLY_TRANSITION меш виден только во время fade, но ориентацию
+			# всё равно обновляем, чтобы он был правильно развёрнут в момент показа.
+			portal_shift = 1 if player_in_front_of_portal else -1
 
 	portal_mesh.scale.z *= signf(portal_shift) # Turn the portal towards the player
+
+	# Обновляем видимость с учётом _fade_active
+	_update_mesh_visibility()
 
 
 func _process_teleports() -> void:
@@ -621,8 +655,6 @@ func _process_teleports() -> void:
 			if teleportable is CharacterBody3D:
 				was_velocity = teleportable.velocity
 
-
-
 			teleportable.global_transform = self.to_exit_transform(teleportable.global_transform)
 
 
@@ -653,10 +685,16 @@ func _process_teleports() -> void:
 				if teleportable.has_method(ON_TELEPORT_CALLBACK):
 					teleportable.call(ON_TELEPORT_CALLBACK, self)
 
+			# [FADE] Меш выходного портала временно появляется и плавно
+			# затухает по alpha (1 → 0). Для всех режимов view_direction.
+			if tp_meta.is_player:
+				exit_portal._start_fade()
+
 			# transfer the thing to exit portal
 			_transfer_tp_metadata_to_exit(body)
 		else:
 			tp_meta.forward = current_fw_angle
+
 			for i in tp_meta.mesh_clones.size():
 				var mesh = tp_meta.meshes[i]
 				var clone = tp_meta.mesh_clones[i]
@@ -716,7 +754,7 @@ func _setup_cameras() -> void:
 	assert(portal_viewport == null)
 
 	if exit_portal == null:
-		push_error("%s has no exit_portal! Failed to setup cameras." % name)
+		#push_error("%s has no exit_portal! Failed to setup cameras." % name)
 		return
 
 	portal_viewport = SubViewport.new()
@@ -741,14 +779,6 @@ func _setup_cameras() -> void:
 		adjusted_env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 		adjusted_env.tonemap_exposure = 1.0
 
-		# Отключаем всё, что портит вид портала
-		adjusted_env.ssao_enabled = false
-		adjusted_env.ssil_enabled = false
-		adjusted_env.ssr_enabled = false
-		adjusted_env.glow_enabled = false
-		adjusted_env.fog_enabled = false
-		adjusted_env.sdfgi_enabled = false
-
 		# Отключаем цветокоррекцию/экспозицию, если они тоже мешают
 		adjusted_env.adjustment_enabled = false
 	else:
@@ -767,6 +797,8 @@ func _setup_cameras() -> void:
 
 	# Подключаем viewport к материалу портала
 	portal_mesh.material_override.set_shader_parameter("albedo", portal_viewport.get_texture())
+	# Инициализируем fade-параметр
+	portal_mesh.material_override.set_shader_parameter("portal_alpha", 1.0)
 
 func _on_teleport_area_entered(area: Area3D) -> void:
 	if _watchlist_teleportables.has(area.get_instance_id()):
@@ -782,6 +814,29 @@ func _on_teleport_body_entered(body: Node3D) -> void:
 
 	_construct_tp_metadata(body)
 
+	# Эффект запускается только при входе с противоположной стороны
+	# относительно teleport_direction, без фактической телепортации.
+	var meta: TeleportableMeta = _watchlist_teleportables.get(body.get_instance_id())
+	if not fade_on_player_touch or meta == null or not meta.is_player:
+		return
+
+	var side_distance := forward_distance(body)
+	var entered_from_opposite_side := false
+
+	match teleport_direction:
+		TeleportDirection.FRONT:
+			# FRONT: противоположная сторона — BACK (+Z).
+			entered_from_opposite_side = side_distance < 0.0
+		TeleportDirection.BACK:
+			# BACK: противоположная сторона — FRONT (-Z).
+			entered_from_opposite_side = side_distance > 0.0
+		TeleportDirection.FRONT_AND_BACK:
+			# У двустороннего портала нет одной противоположной стороны.
+			entered_from_opposite_side = false
+
+	if entered_from_opposite_side:
+		_start_touch_fade()
+
 func _on_teleport_area_exited(area: Area3D) -> void:
 	_erase_tp_metadata(area.get_instance_id())
 
@@ -794,6 +849,111 @@ func _on_window_resize() -> void:
 
 #endregion
 
+#region [FADE] Helper functions
+
+var _fade_tween: Tween = null
+## Активен ли сейчас fade. Пока true, меш показывается даже в ONLY_TRANSITION.
+var _fade_active: bool = false
+
+## Запускает fade на меше портала: меш временно показывается,
+## portal_alpha плавно идёт 1 → 0, затем меш снова скрывается.
+## Вызывается у ВЫХОДНОГО портала сразу после телепорта.
+func _start_fade() -> void:
+	if fade_duration <= 0.0:
+		return
+	if portal_mesh == null:
+		push_warning("%s: _start_fade: portal_mesh is null" % name)
+		return
+
+	var mat := portal_mesh.material_override as ShaderMaterial
+	if mat == null:
+		push_warning("%s: _start_fade: portal_mesh.material_override is not a ShaderMaterial" % name)
+		return
+
+	# Показываем меш
+	_fade_active = true
+	_update_mesh_visibility()
+
+	# alpha = 1 в начале, плавно к 0
+	mat.set_shader_parameter("portal_alpha", 1.0)
+
+	if _fade_tween and _fade_tween.is_valid():
+		_fade_tween.kill()
+
+	_fade_tween = create_tween()
+	_fade_tween.tween_method(
+			func(v: float): mat.set_shader_parameter("portal_alpha", v),
+			1.0, 0.0, fade_duration
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+
+	_fade_tween.tween_callback(func():
+		mat.set_shader_parameter("portal_alpha", 1.0)
+		_fade_active = false
+		_update_mesh_visibility()
+	)
+
+
+## При касании игроком портал плавно исчезает, а затем появляется обратно.
+## Не требует фактической телепортации.
+func _start_touch_fade() -> void:
+	if touch_fade_duration <= 0.0:
+		return
+	if portal_mesh == null:
+		return
+
+	var mat := portal_mesh.material_override as ShaderMaterial
+	if mat == null:
+		return
+
+	# Если эффект уже идёт, не запускаем его повторно.
+	if _fade_tween and _fade_tween.is_valid():
+		_fade_tween.kill()
+
+	_fade_active = true
+	_update_mesh_visibility()
+
+	# Исчезает мгновенно.
+	mat.set_shader_parameter("portal_alpha", 0.0)
+
+	# Затем плавно становится снова непрозрачным.
+	_fade_tween = create_tween()
+	_fade_tween.tween_method(
+			func(v: float): mat.set_shader_parameter("portal_alpha", v),
+			0.0, 1.0, touch_fade_duration
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+	_fade_tween.tween_callback(func():
+		mat.set_shader_parameter("portal_alpha", 1.0)
+		_fade_active = false
+		_update_mesh_visibility()
+	)
+
+#endregion
+
+#region [ONLY_TRANSITION] Helper functions
+
+## Обновляет видимость меша портала в зависимости от режима view_direction
+## и текущего состояния fade.
+##
+## В ONLY_TRANSITION меш скрыт по умолчанию, но временно показывается,
+## пока активен fade (_fade_active == true).
+func _update_mesh_visibility() -> void:
+	# _portal_mesh_path пустой, пока _setup_mesh() не выполнился.
+	if _portal_mesh_path.is_empty():
+		return
+	if not has_node(_portal_mesh_path):
+		return
+	var mi := get_node(_portal_mesh_path) as MeshInstance3D
+	if mi == null:
+		return
+
+	if _fade_active:
+		mi.visible = true
+	else:
+		mi.visible = view_direction != ViewDirection.ONLY_TRANSITION
+
+#endregion
+
 #region UTILS
 
 func _construct_tp_metadata(node: Node3D) -> void:
@@ -801,7 +961,9 @@ func _construct_tp_metadata(node: Node3D) -> void:
 
 	var meta = TeleportableMeta.new()
 	meta.forward = forward_distance(node)
-	meta.is_player = not str(teleportable.get_path_to(player_camera)).begins_with(".")
+	# Игрок определяется по тому, является ли player_camera потомком телепортируемого узла.
+	# Это надёжнее, чем сравнение путей через get_path_to().
+	meta.is_player = teleportable.is_ancestor_of(player_camera)
 
 	## This is a workaround to prevent flickering when traversing portals.
 	## There is a bit of lag when restarting RTT when the exit portal becomes physically visible.
@@ -1043,6 +1205,13 @@ func _get_property_list() -> Array[Dictionary]:
 
 	config.append(AtExport.int_render_3d("portal_render_layer"))
 
+	# [FADE] Настройки fade при телепортации и касании
+	config.append(AtExport.group("Fade"))
+	config.append(AtExport.float_range("fade_duration", 0.0, 3.0, 0.01))
+	config.append(AtExport.bool_("fade_on_player_touch"))
+	config.append(AtExport.float_range("touch_fade_duration", 0.0, 3.0, 0.05))
+	config.append(AtExport.group_end())
+
 	config.append(AtExport.group_end())
 
 	config.append(AtExport.bool_("is_teleport"))
@@ -1079,6 +1248,10 @@ func _property_can_revert(property: StringName) -> bool:
 		&"teleport_interactions",
 		&"teleport_collision_mask",
 		&"start_deactivated",
+		# [FADE]
+		&"fade_duration",
+		&"fade_on_player_touch",
+		&"touch_fade_duration",
 		]
 
 func _property_get_revert(property: StringName) -> Variant:
@@ -1107,6 +1280,13 @@ func _property_get_revert(property: StringName) -> Variant:
 			return 1 << 15
 		&"start_deactivated":
 			return false
+		# [FADE]
+		&"fade_duration":
+			return 0.5
+		&"fade_on_player_touch":
+			return false
+		&"touch_fade_duration":
+			return 0.35
 	return null
 
-	#endregion
+#endregion

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cptcyuii82kkk"]
+
+[ext_resource type="Material" uid="uid://cegfm1a0c3pyj" path="res://Gridbox materials/gridboxes/gridbox_orange.tres" id="1_pf2pg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lswn8"]
+size = Vector3(1.2, 1.2, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a6jrf"]
+size = Vector3(0.9, 0.8592529, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0odxb"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="trapdoor" type="StaticBody3D" unique_id=585993867]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1367249821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.62914765, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1441264109]
+material_override = ExtResource("1_pf2pg")
+mesh = SubResource("BoxMesh_lswn8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=302923720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.070373535, 0)
+shape = SubResource("BoxShape3D_a6jrf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1491971753]
+shape = SubResource("BoxShape3D_0odxb")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=341288641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07055211, 0)
+node_a = NodePath("..")
+node_b = NodePath("../RigidBody3D")
+angular_limit_x/upper_angle = 1.5707964
+angular_limit_x/lower_angle = -1.5707964
+angular_spring_x/enabled = true
+angular_spring_x/stiffness = 1.0
+angular_spring_x/damping = 2.0

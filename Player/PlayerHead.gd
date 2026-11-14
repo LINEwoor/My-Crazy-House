@@ -6,10 +6,11 @@ extends Node3D
 @export var sensY : float = 0.001
 
 func _ready() -> void:
+	G.player_camera = camera
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and G.can_head_rotate:
+	if event is InputEventMouseMotion and !G.is_player_frozen():
 		player.rotate_y(-event.relative.x * sensX)
 		rotate_x(-event.relative.y * sensY)
 		

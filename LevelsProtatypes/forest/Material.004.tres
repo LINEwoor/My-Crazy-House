@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b3f4oqbmcc0k5"]
+
+[ext_resource type="Texture2D" uid="uid://bquej1s2lnis8" path="res://LevelsProtatypes/forest/a_forest_3_with_a_road_at_night_for_game_1.jpg" id="1_5k0mr"]
+[ext_resource type="Texture2D" uid="uid://opi0i02xapor" path="res://LevelsProtatypes/forest/a_forest_3_with_a_road_at_night_for_game_2.png" id="2_kj87s"]
+
+[resource]
+resource_name = "Material.004"
+cull_mode = 2
+albedo_texture = ExtResource("1_5k0mr")
+roughness = 0.82111454
+normal_enabled = true
+normal_texture = ExtResource("2_kj87s")
+metadata/_gltf_primary_texture_coord = 0

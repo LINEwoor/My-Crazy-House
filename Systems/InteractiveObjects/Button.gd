@@ -3,10 +3,10 @@ class_name InteractiveButton
 
 @export var objects : Array[InteractiveObject]
 
-func Interactive(character):
+func Interactive(character : Player):
 	if objects.size() == 0: return
 	onInteractive.emit()
 	
 	for object in objects:
 		if object is InteractiveObject:
-			object.Interactive(self)
+			object.Interactive(character)

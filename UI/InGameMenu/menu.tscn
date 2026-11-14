@@ -4,20 +4,12 @@
 [ext_resource type="AudioStream" uid="uid://c0kpr5jx43pa1" path="res://Audio/minecraft-click_tt2jbLyp.mp3" id="2_p831q"]
 [ext_resource type="PackedScene" uid="uid://bvvpbiun37256" path="res://UI/Volume/VolumeSldierSection.tscn" id="3_37bpl"]
 
-[node name="Menu" type="Control" unique_id=108951194]
+[node name="Menu" type="CanvasLayer" unique_id=772181948 node_paths=PackedStringArray("choose_level_btn")]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
 script = ExtResource("1_jqbra")
+choose_level_btn = NodePath("MainPanel/Button")
 
 [node name="MainPanel" type="Panel" parent="." unique_id=335243931]
-visible = false
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -104,9 +96,16 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Controlls"
 
+[node name="Button" type="Button" parent="MainPanel" unique_id=1149437802]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 72.0
+offset_right = 242.0
+offset_bottom = 103.0
+text = "Выбор уровня"
+
 [node name="AudioPanel" type="Panel" parent="." unique_id=1976719458]
 visible = false
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -198,7 +197,6 @@ text = "X"
 
 [node name="VideoPanel" type="Panel" parent="." unique_id=1543871318]
 visible = false
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -239,7 +237,6 @@ text = "Video"
 
 [node name="ControllsPanel" type="Panel" parent="." unique_id=1532491852]
 visible = false
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

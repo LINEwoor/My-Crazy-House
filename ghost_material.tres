@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dlyh3r3b06mv"]
+
+[ext_resource type="Shader" uid="uid://b4svojow86wns" path="res://LevelsProtatypes/1/ghost.gdshader" id="1_wnqhv"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wnqhv")
+shader_parameter/base_color = Color(0.35, 0.75, 1, 1)
+shader_parameter/base_alpha = 0.054000002564999997
+shader_parameter/edge_alpha = 1.0
+shader_parameter/fresnel_power = 1.0
+shader_parameter/line_density = 51.1330023813175
+shader_parameter/line_alpha = 0.15
+shader_parameter/line_speed = 2.3750000011091288e-07
+shader_parameter/line_width = 0.33200001577
+shader_parameter/line_angle = 0.74000003515

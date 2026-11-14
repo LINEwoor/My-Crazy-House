@@ -1,0 +1,349 @@
+[gd_scene format=3 uid="uid://pc1c1ejfkan5"]
+
+[ext_resource type="Material" uid="uid://dlu1d11oy3b8e" path="res://Gridbox materials/gridboxes/gridbox_dark.tres" id="1_0r6hk"]
+[ext_resource type="PackedScene" uid="uid://tu4bb2ym656r" path="res://Player/player.tscn" id="2_rxlai"]
+[ext_resource type="Script" uid="uid://42b28yvhkshq" path="res://LevelsProtatypes/7/painting.gd" id="3_gxp0n"]
+[ext_resource type="PackedScene" uid="uid://blbniqq2fnu3d" path="res://LevelsProtatypes/7/painting2.glb" id="3_rxlai"]
+[ext_resource type="Shader" uid="uid://ckc7wnqy20sx8" path="res://LevelsProtatypes/7/light_ray.gdshader" id="5_cba5o"]
+[ext_resource type="Material" uid="uid://bixlws5jdqjpt" path="res://Gridbox materials/gridboxes/gridbox_white.tres" id="5_t4aon"]
+[ext_resource type="PackedScene" uid="uid://jf3kj7cs82uf" path="res://painting.tscn" id="6_26rmp"]
+[ext_resource type="Material" uid="uid://cegfm1a0c3pyj" path="res://Gridbox materials/gridboxes/gridbox_orange.tres" id="7_rdivs"]
+[ext_resource type="Material" uid="uid://b3r1tbowxsx6y" path="res://Gridbox materials/gridboxes/gridbox_red.tres" id="8_26rmp"]
+[ext_resource type="Material" uid="uid://mq60nx5d23nt" path="res://Gridbox materials/gridboxes/gridbox_purple.tres" id="9_gk1l1"]
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+ambient_light_source = 2
+ambient_light_color = Color(0.27387285, 0.27387273, 0.2738727, 1)
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_read_sky_light = false
+sdfgi_cascades = 8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(2, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t4aon"]
+size = Vector3(2.05, 2, 0.15)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf5fn"]
+render_priority = 0
+shader = ExtResource("5_cba5o")
+shader_parameter/beam_color = Color(1, 0.9, 0.6, 1)
+shader_parameter/intensity = 2.000000095
+shader_parameter/fade_power = 3.91600018275012
+shader_parameter/fade_strength = 3.53400016460512
+shader_parameter/start_fade = 0.05
+shader_parameter/end_fade = 0.350000016625
+shader_parameter/edge_softness = 0.794000037715
+shader_parameter/edge_power = 2.0
+shader_parameter/distance_fade_min = 10.0
+shader_parameter/distance_fade_max = 15.0
+shader_parameter/dither_strength = 1.0
+shader_parameter/proximity_fade_distance = 0.150000007125
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+top_radius = 0.015
+bottom_radius = 0.2
+height = 1.0658569
+radial_segments = 12
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_57qmd"]
+render_priority = 0
+shader = ExtResource("5_cba5o")
+shader_parameter/beam_color = Color(1, 0.9, 0.6, 1)
+shader_parameter/intensity = 10.0
+shader_parameter/fade_power = 0.10000000149012
+shader_parameter/fade_strength = 0.10000000149012
+shader_parameter/start_fade = 0.05
+shader_parameter/end_fade = 0.0
+shader_parameter/edge_softness = 0.5
+shader_parameter/edge_power = 2.0
+shader_parameter/distance_fade_min = 10.0
+shader_parameter/distance_fade_max = 15.0
+shader_parameter/dither_strength = 1.0
+shader_parameter/proximity_fade_distance = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
+size = Vector3(0.24960938, 0.1161377, 0.005)
+
+[sub_resource type="Curve" id="Curve_cba5o"]
+_data = [Vector2(0.3440367, 0), 0.0, 0.0, 0, 0, Vector2(0.5229358, 1), 0.0, 0.0, 0, 0, Vector2(0.7155964, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_tah4q"]
+curve = SubResource("Curve_cba5o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tah4q"]
+direction = Vector3(0, -0.01, 0)
+spread = 15.0
+initial_velocity_max = 0.01
+gravity = Vector3(0, -0.1, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 0.19999775
+radial_accel_min = -2.2351742e-06
+radial_accel_max = 0.49999776
+damping_max = 0.2
+scale_min = 0.0
+scale_max = 0.01
+scale_curve = SubResource("CurveTexture_tah4q")
+
+[sub_resource type="Gradient" id="Gradient_cba5o"]
+offsets = PackedFloat32Array(0.0051020407, 1)
+colors = PackedColorArray(0.9257106, 0.8579876, 0.7224411, 1, 0.6392157, 0.36078432, 0.047058824, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rdivs"]
+gradient = SubResource("Gradient_cba5o")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ap5yi"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_rdivs")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_tah4q"]
+material = SubResource("StandardMaterial3D_ap5yi")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cba5o"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_tah4q"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rdivs"]
+radius = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_54274"]
+radius = 0.4
+height = 0.8
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cba5o"]
+emission_shape = 2
+emission_sphere_radius = 2.0
+gravity = Vector3(0, -0.1, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 0.19999775
+radial_accel_min = -2.2351742e-06
+radial_accel_max = 0.49999776
+damping_max = 0.2
+scale_min = 0.01
+scale_max = 0.049999997
+scale_curve = SubResource("CurveTexture_tah4q")
+
+[sub_resource type="QuadMesh" id="QuadMesh_g4v7s"]
+
+[node name="7" type="Node3D" unique_id=1749247963]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=48679493]
+environment = SubResource("Environment_g4v7s")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=1834874149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.024401, -8.728516)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 27.457031)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=546674959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.728516)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 27.457031)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=1304294106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26.474365)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 8.049927)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1681232531]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -4.488571, 5.5, -8.728516)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 27.457031)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1712222786]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 4.5082607, 5.5, -8.728516)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 27.457031)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=680641084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.024401, -26.658253)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 7.694214)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=1911613222]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -4.488571, 5.5, -26.531849)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 7.4414063)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="." unique_id=1273994103]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 4.5082607, 5.5, -26.661488)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 7.7006836)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=255421422]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, -0.16881752, 5.5, 4.5486794)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=363205252]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, -0.16881752, 5.5, -30.088066)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=817413007]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, -0.00078983605, 5.5, -22.286472)
+material_override = ExtResource("1_0r6hk")
+use_collision = true
+size = Vector3(10, 1, 10.025635)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGBox3D5" unique_id=838107775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1808038, 0.05883789, 0.021476744)
+material_override = ExtResource("1_0r6hk")
+operation = 2
+use_collision = true
+size = Vector3(1.7285767, 1.1948242, 1.7072296)
+
+[node name="Player" parent="." unique_id=1565813645 instance=ExtResource("2_rxlai")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4658935, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=2106562778 node_paths=PackedStringArray("trigger_area", "beam_meshes", "dust_particles") groups=["grabbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2907553, -21.734816)
+collision_mask = 3
+continuous_cd = true
+script = ExtResource("3_gxp0n")
+trigger_area = NodePath("Area3D")
+beam_meshes = [NodePath("MeshInstance3D3"), NodePath("MeshInstance3D"), NodePath("MeshInstance3D4"), NodePath("MeshInstance3D2")]
+dust_particles = [NodePath("MeshInstance3D3/GPUParticles3D3"), NodePath("MeshInstance3D/GPUParticles3D2")]
+
+[node name="painting2" parent="RigidBody3D" unique_id=1319572021 instance=ExtResource("3_rxlai")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=307213878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0017242432, -0.014892578)
+visible = false
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D" unique_id=1461838625]
+visible = false
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D" unique_id=1489246122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0017242432, -0.014892578)
+shape = SubResource("BoxShape3D_t4aon")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RigidBody3D" unique_id=1863223642]
+transform = Transform3D(1, 0, 0, 0, 0.5296348, 0.8482259, 0, -0.8482259, 0.5296348, -0.24262695, 0.062258244, 0.3857441)
+material_override = SubResource("ShaderMaterial_yf5fn")
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="RigidBody3D" unique_id=1007467508]
+transform = Transform3D(1, 0, 0, 0, 0.5296348, 0.8482259, 0, -0.8482259, 0.5296348, 0.269616, 0.15101957, 0.3857441)
+material_override = SubResource("ShaderMaterial_yf5fn")
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=2110636919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28767684, 0.32546163, -0.046747208)
+material_override = SubResource("ShaderMaterial_57qmd")
+mesh = SubResource("BoxMesh_yf5fn")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="RigidBody3D/MeshInstance3D" unique_id=137852045]
+transform = Transform3D(1, 0, 0, 0, 0.528044, 0.84921706, 0, -0.84921706, 0.528044, 0.026156068, 0.006434679, -0.012998581)
+amount = 500
+lifetime = 2.0
+speed_scale = 0.25
+randomness = 1.0
+local_coords = true
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_tah4q")
+draw_pass_1 = SubResource("QuadMesh_tah4q")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="RigidBody3D" unique_id=715648627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24162467, 0.38669586, -0.046747208)
+material_override = SubResource("ShaderMaterial_57qmd")
+mesh = SubResource("BoxMesh_yf5fn")
+
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="RigidBody3D/MeshInstance3D3" unique_id=1938656738]
+transform = Transform3D(1, 0, 0, 0, 0.528044, 0.84921706, 0, -0.84921706, 0.528044, 0.029697582, 0.041976452, -0.012998581)
+amount = 750
+lifetime = 2.0
+speed_scale = 0.25
+randomness = 1.0
+local_coords = true
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_tah4q")
+draw_pass_1 = SubResource("QuadMesh_tah4q")
+
+[node name="Painting" parent="." unique_id=884977326 instance=ExtResource("6_26rmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5113773, 2.2907553, -21.734816)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1993934601]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9.346971, -6.957242)
+light_energy = 1.2
+spot_range = 43.963
+spot_angle = 90.0
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="." unique_id=2063952834 groups=["grabbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0000002, -18.605785)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2" unique_id=2046801518]
+shape = SubResource("SphereShape3D_cba5o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2" unique_id=1552417534]
+material_override = ExtResource("5_t4aon")
+mesh = SubResource("SphereMesh_tah4q")
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="." unique_id=469593121 groups=["grabbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0000002, 1.0970724)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D3" unique_id=988684750]
+shape = SubResource("SphereShape3D_rdivs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D3" unique_id=1262029134]
+material_override = ExtResource("7_rdivs")
+mesh = SubResource("SphereMesh_54274")
+
+[node name="OmniLight3D" type="SpotLight3D" parent="." unique_id=529635061]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.33090234, 9.646396, -26.46338)
+light_color = Color(1, 1, 0.05882353, 1)
+light_energy = 1.5
+shadow_enabled = true
+spot_range = 13.023
+spot_angle = 75.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1279118845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5838826, -19.763739)
+amount = 100
+lifetime = 5.0
+speed_scale = 0.25
+randomness = 1.0
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_cba5o")
+draw_pass_1 = SubResource("QuadMesh_tah4q")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="." unique_id=1900950494]
+transform = Transform3D(1, 0, 0, 0, 0.989071, 0.1474401, 0, -0.1474401, 0.989071, 0, 3.517527, 3.5079348)
+material_override = ExtResource("8_26rmp")
+use_collision = true
+outer_radius = 0.615
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1765478838]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3.7619839, 4.031367)
+material_override = ExtResource("9_gk1l1")
+mesh = SubResource("QuadMesh_g4v7s")

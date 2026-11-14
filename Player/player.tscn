@@ -12,6 +12,17 @@
 [ext_resource type="Script" uid="uid://expchj3p7k3g" path="res://Player/Components/InteractiveReader.gd" id="10_apopc"]
 [ext_resource type="PackedScene" uid="uid://df6uj5qq64c5h" path="res://UI/InGameMenu/menu.tscn" id="10_x3vf3"]
 [ext_resource type="PackedScene" uid="uid://b7jbyi8kpii37" path="res://Systems/Inventory/Inventory.tscn" id="12_5htga"]
+[ext_resource type="Shader" uid="uid://cxohgra5ex1v2" path="res://Player/blackScreen.gdshader" id="13_p5o4e"]
+[ext_resource type="Material" uid="uid://cegfm1a0c3pyj" path="res://Gridbox materials/gridboxes/gridbox_orange.tres" id="14_7emwf"]
+[ext_resource type="Script" uid="uid://b5th6pgf0hhip" path="res://Player/black_screen.gd" id="14_gu6f8"]
+[ext_resource type="Script" uid="uid://drxdr3abyrj8b" path="res://Player/inventory_quest_items_ui.gd" id="14_hshwv"]
+[ext_resource type="ArrayMesh" uid="uid://3qypshfr5f8o" path="res://Gear_mesh.tres" id="15_gpjlu"]
+[ext_resource type="AudioStream" uid="uid://bvfrcqc7aruvl" path="res://footstep.mp3" id="15_lfmf2"]
+[ext_resource type="Script" uid="uid://2n6i7chekqn6" path="res://Player/inspect_rotator.gd" id="16_8mwp6"]
+[ext_resource type="Script" uid="uid://dctu1okdb1ty8" path="res://Player/footsteps.gd" id="16_pisgm"]
+[ext_resource type="AudioStream" uid="uid://548rmix3swrk" path="res://jumping.mp3" id="17_b1ygp"]
+[ext_resource type="Script" uid="uid://c77jx0i67n6v6" path="res://Player/jump_land_audio.gd" id="17_pisgm"]
+[ext_resource type="AudioStream" uid="uid://d1daqdges2pqv" path="res://landing.mp3" id="18_o28un"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
 radius = 0.4
@@ -106,6 +117,13 @@ _data = {
 &"StandToCrouch": SubResource("Animation_1jxqw")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5htga"]
+shader = ExtResource("13_p5o4e")
+shader_parameter/darkness = 0.0
+shader_parameter/fade_color = Color(0, 0, 0, 1)
+shader_parameter/eyelid_amount = 0.0
+shader_parameter/use_eyelids = true
+
 [sub_resource type="Gradient" id="Gradient_x3vf3"]
 offsets = PackedFloat32Array(0.58898306, 0.7076271)
 colors = PackedColorArray(1, 1, 1, 0.38039216, 0, 0, 0, 0)
@@ -117,11 +135,22 @@ height = 8
 fill = 1
 fill_from = Vector2(0.5, 0.4871795)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_apopc"]
-radius = 0.4
-height = 1.8
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_57qmd"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1565813645 node_paths=PackedStringArray("hand", "inventory", "animator", "roof_checker", "push_component") groups=["player"]]
+[sub_resource type="Sky" id="Sky_yf5fn"]
+sky_material = SubResource("PhysicalSkyMaterial_57qmd")
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+background_mode = 2
+sky = SubResource("Sky_yf5fn")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_g4v7s"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1565813645 node_paths=PackedStringArray("hand", "inventory", "animator", "roof_rays", "footstep_audio_source", "push_component") groups=["player"]]
 collision_layer = 32770
 floor_max_angle = 1.134464
 platform_floor_layers = 0
@@ -131,18 +160,20 @@ item_offset = Vector3(0, 0, 0)
 sprint_speed = 6.0
 crouch_speed = 1.5
 jump_height = 1.0
-air_control = 0.1
+air_control = 0.05
 jump_buffer_time = 0.1
 crouch_buffer_time = 0.1
 inventory = NodePath("Components/Inventory")
 animator = NodePath("AnimationPlayer")
-roof_checker = NodePath("ShapeCast3D")
+roof_rays = [NodePath("RoofCheckers/RayCast3D"), NodePath("RoofCheckers/RayCast3D2"), NodePath("RoofCheckers/RayCast3D3"), NodePath("RoofCheckers/RayCast3D4"), NodePath("RoofCheckers/RayCast3D5")]
+footstep_audio_source = NodePath("FootstepAudio3D")
 push_component = NodePath("Components/PushRigidbodiesComponent")
 
 [node name="Stand_MeshInstance3D" type="MeshInstance3D" parent="." unique_id=649816261]
 visible = false
 layers = 2
 material_override = ExtResource("1_4flbx")
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_onrkg")
 
 [node name="Stand_CollisionShape3D" type="CollisionShape3D" parent="." unique_id=372792505]
@@ -150,6 +181,7 @@ shape = SubResource("CapsuleShape3D_i3pqv")
 
 [node name="Chrouch_MeshInstance3D" type="MeshInstance3D" parent="." unique_id=505254066]
 layers = 2
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_1jxqw")
 
 [node name="Chrouch_CollisionShape3D" type="CollisionShape3D" parent="." unique_id=443398522]
@@ -175,12 +207,13 @@ mesh = SubResource("QuadMesh_1jxqw")
 
 [node name="Interactive_ray" type="RayCast3D" parent="Head/Bobbong_pivot" unique_id=617838184]
 target_position = Vector3(0, 0, -2)
-collision_mask = 32769
+collision_mask = 32773
 collide_with_areas = true
 script = ExtResource("4_2hs0m")
 
-[node name="RoofChecker" type="RayCast3D" parent="Head/Bobbong_pivot" unique_id=616590701]
-target_position = Vector3(0, 0.85, 0)
+[node name="GrabRay" type="RayCast3D" parent="Head/Bobbong_pivot" unique_id=638660092]
+target_position = Vector3(0, 0, -2)
+collision_mask = 32769
 
 [node name="Hand" type="Node3D" parent="Head" unique_id=143413245]
 transform = Transform3D(0.97132134, 0.2263551, 0.07278757, -0.17524865, 0.88843435, -0.4242319, -0.160694, 0.39930958, 0.9026236, 0.7768723, -0.52956945, -0.91862535)
@@ -204,7 +237,7 @@ push_force = 25.0
 [node name="GrabObjectsComponent" type="Node" parent="Components" unique_id=115821415 node_paths=PackedStringArray("camera", "raycast")]
 script = ExtResource("9_b26j0")
 camera = NodePath("../../Head/Bobbong_pivot/Camera3D")
-raycast = NodePath("../../Head/Bobbong_pivot/Interactive_ray")
+raycast = NodePath("../../Head/Bobbong_pivot/GrabRay")
 max_rope_distance = 3.0
 throw_speed = 5.0
 show_trajectory = true
@@ -236,7 +269,17 @@ horizontal_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=577088212]
 libraries/ = SubResource("AnimationLibrary_dw050")
 
-[node name="Menu" parent="." unique_id=108951194 instance=ExtResource("10_x3vf3")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1937712648]
+layer = 10
+
+[node name="BlackScreen" type="ColorRect" parent="CanvasLayer" unique_id=2130786502]
+material = SubResource("ShaderMaterial_5htga")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_gu6f8")
 
 [node name="Aim" type="CanvasLayer" parent="." unique_id=876831885]
 
@@ -254,6 +297,195 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_57qmd")
 
-[node name="ShapeCast3D" type="ShapeCast3D" parent="." unique_id=560698034]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01, 0)
-shape = SubResource("CapsuleShape3D_apopc")
+[node name="InventoryQuestItems" type="CanvasLayer" parent="." unique_id=438551313 node_paths=PackedStringArray("prev_button", "next_button", "item_viewmodel", "display_name_label", "description_label") groups=["inventory_quest"]]
+process_mode = 3
+script = ExtResource("14_hshwv")
+prev_button = NodePath("Button")
+next_button = NodePath("Button2")
+item_viewmodel = NodePath("Panel2/SubViewportContainer/SubViewport/CSGBox3D")
+display_name_label = NodePath("Label")
+description_label = NodePath("Label2")
+
+[node name="Panel" type="Panel" parent="InventoryQuestItems" unique_id=1755593252]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="InventoryQuestItems" unique_id=1052074767]
+process_mode = 3
+anchors_preset = -1
+anchor_left = 0.021000002
+anchor_top = 0.45400003
+anchor_right = 0.055000003
+anchor_bottom = 0.546
+offset_left = 0.23999786
+offset_top = 0.23999023
+offset_right = 1.199997
+offset_bottom = -0.23999023
+grow_vertical = 2
+theme_override_font_sizes/font_size = 90
+text = "<-"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="Button" parent="InventoryQuestItems" unique_id=756114792]
+process_mode = 3
+anchors_preset = -1
+anchor_left = 0.929
+anchor_top = 0.45400003
+anchor_right = 0.96400005
+anchor_bottom = 0.546
+offset_left = 0.76000977
+offset_top = 0.23999023
+offset_right = -0.8400879
+offset_bottom = -0.23999023
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 90
+text = "->"
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel2" type="Panel" parent="InventoryQuestItems" unique_id=325922611]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="InventoryQuestItems/Panel2" unique_id=1431604185]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="InventoryQuestItems/Panel2/SubViewportContainer" unique_id=141797227]
+process_mode = 3
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(600, 600)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="InventoryQuestItems/Panel2/SubViewportContainer/SubViewport" unique_id=2024503179]
+process_mode = 3
+environment = SubResource("Environment_g4v7s")
+
+[node name="Camera3D" type="Camera3D" parent="InventoryQuestItems/Panel2/SubViewportContainer/SubViewport" unique_id=732113286]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.23498535)
+
+[node name="CSGBox3D" type="MeshInstance3D" parent="InventoryQuestItems/Panel2/SubViewportContainer/SubViewport" unique_id=1803181387 node_paths=PackedStringArray("camera")]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+material_override = ExtResource("14_7emwf")
+mesh = ExtResource("15_gpjlu")
+script = ExtResource("16_8mwp6")
+camera = NodePath("../Camera3D")
+
+[node name="Label" type="Label" parent="InventoryQuestItems" unique_id=777325853]
+process_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -294.5
+offset_top = 53.0
+offset_right = 294.5
+offset_bottom = 166.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 82
+text = "DISPLAY NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="InventoryQuestItems" unique_id=451579986]
+process_mode = 3
+custom_minimum_size = Vector2(850, 200)
+custom_maximum_size = Vector2(850, 200)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -425.0
+offset_top = -395.0
+offset_right = 425.0
+offset_bottom = -195.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Description item Description item Description item Description item Description item Description item Description item Description item "
+horizontal_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Menu" parent="." unique_id=108951194 instance=ExtResource("10_x3vf3")]
+
+[node name="ShapeCast3D2" type="ShapeCast3D" parent="." unique_id=1119077582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.101745605, -0.46434784)
+shape = SubResource("SeparationRayShape3D_g4v7s")
+
+[node name="RoofCheckers" type="Node3D" parent="." unique_id=798450551]
+
+[node name="RayCast3D" type="RayCast3D" parent="RoofCheckers" unique_id=1079734348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8739621, 0)
+target_position = Vector3(0, 1.8, 0)
+
+[node name="RayCast3D2" type="RayCast3D" parent="RoofCheckers" unique_id=22592869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24498367, -0.8739621, 0.27877042)
+target_position = Vector3(0, 1.8, 0)
+
+[node name="RayCast3D3" type="RayCast3D" parent="RoofCheckers" unique_id=351617095]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24208784, -0.8739621, -0.29168475)
+target_position = Vector3(0, 1.8, 0)
+
+[node name="RayCast3D4" type="RayCast3D" parent="RoofCheckers" unique_id=1912687064]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24143136, -0.8739621, -0.29506242)
+target_position = Vector3(0, 1.8, 0)
+
+[node name="RayCast3D5" type="RayCast3D" parent="RoofCheckers" unique_id=1526552650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2761743, -0.8739621, 0.25464702)
+target_position = Vector3(0, 1.8, 0)
+
+[node name="FootstepAudio3D" type="AudioStreamPlayer3D" parent="." unique_id=1062334322 node_paths=PackedStringArray("bobbing")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.884639, 0)
+stream = ExtResource("15_lfmf2")
+max_polyphony = 4
+bus = &"SFX"
+script = ExtResource("16_pisgm")
+footstep_stream = ExtResource("15_lfmf2")
+bobbing = NodePath("../Components/Bobbing_node")
+
+[node name="JumpAudio3D" type="AudioStreamPlayer3D" parent="." unique_id=859853522 node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.88151306, 0)
+max_polyphony = 4
+bus = &"SFX"
+script = ExtResource("17_pisgm")
+audio_stream = ExtResource("17_b1ygp")
+player = NodePath("..")
+
+[node name="LandingAudio3D" type="AudioStreamPlayer3D" parent="." unique_id=1570993586 node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.88151306, 0)
+stream = ExtResource("18_o28un")
+max_polyphony = 4
+bus = &"SFX"
+script = ExtResource("17_pisgm")
+trigger = 1
+audio_stream = ExtResource("18_o28un")
+player = NodePath("..")
+land_volume_scale = 2.0

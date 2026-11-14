@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://41f5nghte3pp"]
+
+[ext_resource type="Texture2D" uid="uid://bdrougnt5hlr4" path="res://LevelsProtatypes/forest/bring-night-space-wallpaper-with-glowing-starfield_1017-53512.png" id="1_47mun"]
+[ext_resource type="Texture2D" uid="uid://cjblaqveunjof" path="res://LevelsProtatypes/forest/bring-night-space-wallpaper-with-glowing-starfield_1017-53512_emission_512x293.png" id="2_cc5p3"]
+
+[resource]
+disable_fog = true
+albedo_texture = ExtResource("1_47mun")
+emission_enabled = true
+emission_texture = ExtResource("2_cc5p3")
+uv1_scale = Vector3(0.03, 0.03, 0.03)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
+point_size = 128.0
+distance_fade_mode = 2
+distance_fade_min_distance = 10.0
+distance_fade_max_distance = 20.0

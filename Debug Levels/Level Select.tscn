@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://wj7f4ydii545"]
+
+[ext_resource type="Script" uid="uid://m3fsa8cq4mr1" path="res://Debug Levels/level_select.gd" id="1_ahjro"]
+[ext_resource type="PackedScene" uid="uid://c3vtn8fjp51ag" path="res://Debug Levels/level_item.tscn" id="2_trg3m"]
+[ext_resource type="Texture2D" uid="uid://d2hix42ghe0sp" path="res://GameScenes/TestPreview.png" id="3_u287o"]
+[ext_resource type="PackedScene" uid="uid://c7et6ax587yfl" path="res://GameScenes/Test.tscn" id="3_weujh"]
+[ext_resource type="Script" uid="uid://bsucad0yukfk4" path="res://Debug Levels/DebugLevelData.gd" id="5_ftv24"]
+[ext_resource type="PackedScene" uid="uid://cs7fk3uq1y1jx" path="res://LevelsProtatypes/2/2.tscn" id="5_qvlme"]
+[ext_resource type="Texture2D" uid="uid://bikuonkwci0gc" path="res://LevelsProtatypes/2/2Preview.png" id="6_u287o"]
+[ext_resource type="Texture2D" uid="uid://co2sa72bmfobu" path="res://LevelsProtatypes/3/3Preview.png" id="8_u287o"]
+[ext_resource type="PackedScene" uid="uid://cri75vvgfdpwe" path="res://LevelsProtatypes/3/3.tscn" id="9_i4xu7"]
+[ext_resource type="Texture2D" uid="uid://ct3mt85q2l8oh" path="res://LevelsProtatypes/3 (alt)/3AltPreview.png" id="10_ficmb"]
+[ext_resource type="PackedScene" uid="uid://cdouv1x54k3o7" path="res://LevelsProtatypes/3 (alt)/3alt.tscn" id="11_yshud"]
+[ext_resource type="PackedScene" uid="uid://chl88q7lf0qt1" path="res://LevelsProtatypes/4/4.tscn" id="12_0vv21"]
+[ext_resource type="Texture2D" uid="uid://dro7pxhavwsbb" path="res://LevelsProtatypes/4/4Preview.png" id="12_2bc50"]
+[ext_resource type="PackedScene" uid="uid://cedqojb5yg6f0" path="res://LevelsProtatypes/5/5.tscn" id="13_pbe37"]
+[ext_resource type="Texture2D" uid="uid://cl1f0es61v533" path="res://LevelsProtatypes/5/5Preview.png" id="14_14s3s"]
+[ext_resource type="Texture2D" uid="uid://byl6ly4r6pwsm" path="res://LevelsProtatypes/forest/forestLevelPreview.png" id="16_sjuen"]
+[ext_resource type="PackedScene" uid="uid://dgm4qicfu8e16" path="res://LevelsProtatypes/forest/forestLevelProtatype.tscn" id="17_u287o"]
+
+[sub_resource type="Resource" id="Resource_mfd78"]
+script = ExtResource("5_ftv24")
+level_scene = ExtResource("3_weujh")
+custom_icon = ExtResource("3_u287o")
+display_name = "тестовый полигон"
+description = "Место экспериментов. Тест порталов, физики и тд."
+metadata/_custom_type_script = "uid://bsucad0yukfk4"
+
+[sub_resource type="Resource" id="Resource_qvlme"]
+script = ExtResource("5_ftv24")
+level_scene = ExtResource("5_qvlme")
+custom_icon = ExtResource("6_u287o")
+display_name = "погоня"
+description = "простенький побег от злой красной стены. Тест триггеров и просто зачаток идеи под уровень."
+metadata/_custom_type_script = "uid://bsucad0yukfk4"
+
+[sub_resource type="Resource" id="Resource_6t3ma"]
+script = ExtResource("5_ftv24")
+level_scene = ExtResource("9_i4xu7")
+custom_icon = ExtResource("8_u287o")
+display_name = "петля на лестнице"
+description = "бескочное возвращение в комнату за счет использования порталов. Красный диван - ориентир, что комната повторяется."
+metadata/_custom_type_script = "uid://bsucad0yukfk4"
+
+[sub_resource type="Resource" id="Resource_8ad4j"]
+script = ExtResource("5_ftv24")
+level_scene = ExtResource("11_yshud")
+custom_icon = ExtResource("10_ficmb")
+display_name = "Петля на лестнице 2"
+description = "бесконечное подъем по лестнице за счет порталов. Картина с Дедушкой Обходом служит ориентиром повтора."
+metadata/_custom_type_script = "uid://bsucad0yukfk4"
+
+[sub_resource type="Resource" id="Resource_0vv21"]
+script = ExtResource("5_ftv24")
+level_scene = ExtResource("12_0vv21")
+custom_icon = ExtResource("12_2bc50")
+display_name = "Поезд"
+description = "Идея уровня. Пока без функционала, просто поезд. Освещение, топология уровня не конечные."
+metadata/_custom_type_script = "uid://bsucad0yukfk4"
+
+[sub_resource type="Resource" id="Resource_pbe37"]
+script = ExtResource("5_ftv24")
+level_scene = ExtResource("13_pbe37")
+custom_icon = ExtResource("14_14s3s")
+display_name = "Мегаструктура"
+description = "Идея визуала уровня."
+metadata/_custom_type_script = "uid://bsucad0yukfk4"
+
+[sub_resource type="Resource" id="Resource_3h3xf"]
+script = ExtResource("5_ftv24")
+level_scene = ExtResource("17_u287o")
+custom_icon = ExtResource("16_sjuen")
+display_name = "Лес"
+description = "Переход через портал из комнаты в лес. Звездное небо это лишь текстура стен и потолка, которая подменяется на текстуру обоев, если приблизиться.
+[color=yellow]ПРИМ.: идея уровня. который отсылает к еще не вышедшему приквелу \"Хворост\", действия которого происходят в лесу."
+metadata/_custom_type_script = "uid://bsucad0yukfk4"
+
+[node name="Control" type="Control" unique_id=193854991]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ahjro")
+
+[node name="Panel" type="Panel" parent="." unique_id=541021086]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=509365684]
+layout_mode = 1
+offset_left = 117.0
+offset_top = 88.0
+offset_right = 2397.0
+offset_bottom = 1218.0
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 40
+columns = 8
+
+[node name="LevelItem8" parent="GridContainer" unique_id=1790405858 instance=ExtResource("2_trg3m")]
+layout_mode = 2
+levelData = SubResource("Resource_mfd78")
+
+[node name="LevelItem2" parent="GridContainer" unique_id=635613174 instance=ExtResource("2_trg3m")]
+layout_mode = 2
+levelData = SubResource("Resource_qvlme")
+
+[node name="LevelItem3" parent="GridContainer" unique_id=856374527 instance=ExtResource("2_trg3m")]
+layout_mode = 2
+levelData = SubResource("Resource_6t3ma")
+
+[node name="LevelItem4" parent="GridContainer" unique_id=370261605 instance=ExtResource("2_trg3m")]
+layout_mode = 2
+levelData = SubResource("Resource_8ad4j")
+
+[node name="LevelItem5" parent="GridContainer" unique_id=1303584624 instance=ExtResource("2_trg3m")]
+layout_mode = 2
+levelData = SubResource("Resource_0vv21")
+
+[node name="LevelItem6" parent="GridContainer" unique_id=820606013 instance=ExtResource("2_trg3m")]
+layout_mode = 2
+levelData = SubResource("Resource_pbe37")
+
+[node name="LevelItem7" parent="GridContainer" unique_id=1343502729 instance=ExtResource("2_trg3m")]
+layout_mode = 2
+levelData = SubResource("Resource_3h3xf")
+
+[node name="Label" type="Label" parent="." unique_id=27509279]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 12.0
+offset_right = 1263.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 20
+text = "Выбор уровней-протипов. Пока они не имеют геймплея, выступают скорее как тест механик и как идеи, чтобы не забыть."

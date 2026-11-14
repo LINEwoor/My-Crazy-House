@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://belfj202qmy7b"]
+
+[ext_resource type="Shader" uid="uid://c6d60jjn04qcb" path="res://addons/portals/materials/portal_clip.gdshader" id="1_l3qq8"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_l3qq8")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)

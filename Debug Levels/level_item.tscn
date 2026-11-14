@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://c3vtn8fjp51ag"]
+
+[ext_resource type="Script" uid="uid://dgnnp5w5phv7m" path="res://Debug Levels/level_item.gd" id="1_62q5i"]
+
+[node name="LevelItem" type="Panel" unique_id=1790405858 node_paths=PackedStringArray("button", "icon", "name_label", "description_label")]
+custom_minimum_size = Vector2(250, 400)
+offset_right = 250.0
+offset_bottom = 350.0
+script = ExtResource("1_62q5i")
+button = NodePath("Button")
+icon = NodePath("VBoxContainer2/VBoxContainer/TextureRect")
+name_label = NodePath("VBoxContainer2/VBoxContainer/Label")
+description_label = NodePath("VBoxContainer2/VBoxContainer/HBoxContainer/Label2")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=281745933]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2" unique_id=168956002]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/VBoxContainer" unique_id=1711404681]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 2
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer" unique_id=787575591]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer" unique_id=301849883]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1208530122]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label2" type="RichTextLabel" parent="VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=303686743]
+custom_minimum_size = Vector2(-1, 220)
+custom_maximum_size = Vector2(-1, 220)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+mouse_behavior_recursive = 2
+bbcode_enabled = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=657596641]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="." unique_id=1546887821]
+layout_mode = 0
+offset_top = 342.0
+offset_right = 250.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 1
+text = "START"

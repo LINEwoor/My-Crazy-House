@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c6kiglblap8qb"]
+
+[ext_resource type="Texture2D" uid="uid://bqx26p7rcxv73" path="res://LevelsProtatypes/forest/3248ad11-b686-49ba-acaa-20e8e306abbb.png" id="1_6f4nf"]
+
+[resource]
+albedo_texture = ExtResource("1_6f4nf")
+emission_enabled = true
+emission_texture = ExtResource("1_6f4nf")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true

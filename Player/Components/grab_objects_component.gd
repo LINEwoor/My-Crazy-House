@@ -133,6 +133,9 @@ func try_grab() -> void:
 			grab_point_global = raycast.get_collision_point()
 	
 	if obj and obj.is_in_group("grabbable"):
+		if obj is Painting:
+			var painting : Painting = obj
+			painting.unfreeze()
 		grabbing_object = obj
 		_active_portal = hit_portal
 		

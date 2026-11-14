@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dqaxq4r4gyywj"]
+
+[ext_resource type="Script" uid="uid://smss7j50umgl" path="res://Player/inventory_quest.gd" id="1_um81c"]
+
+[node name="InventoryQuest" type="Node" unique_id=912656570 groups=["inventory_quest"]]
+process_mode = 3
+script = ExtResource("1_um81c")

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://jf3kj7cs82uf"]
+
+[ext_resource type="Script" uid="uid://42b28yvhkshq" path="res://LevelsProtatypes/7/painting.gd" id="1_d1dx2"]
+[ext_resource type="PackedScene" uid="uid://blbniqq2fnu3d" path="res://LevelsProtatypes/7/painting2.glb" id="2_kh476"]
+[ext_resource type="Script" uid="uid://44i2jh5y085i" path="res://collision_sound.gd" id="3_3jie2"]
+[ext_resource type="AudioStream" uid="uid://d1daqdges2pqv" path="res://landing.mp3" id="4_3jie2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(2, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t4aon"]
+size = Vector3(2.05, 2, 0.15)
+
+[node name="Painting" type="RigidBody3D" unique_id=884977326 node_paths=PackedStringArray("trigger_area", "beam_meshes", "dust_particles") groups=["grabbable"]]
+collision_mask = 3
+continuous_cd = true
+script = ExtResource("1_d1dx2")
+trigger_area = NodePath("Area3D")
+beam_meshes = [null, null, null, null]
+dust_particles = [null, null]
+
+[node name="painting2" parent="." unique_id=1319572021 instance=ExtResource("2_kh476")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=803270126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0017242432, -0.014892578)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2072254557]
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=440079072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0017242432, -0.014892578)
+shape = SubResource("BoxShape3D_t4aon")
+
+[node name="CollisionSound" type="Node" parent="." unique_id=521848418]
+script = ExtResource("3_3jie2")
+impact_sound = ExtResource("4_3jie2")
